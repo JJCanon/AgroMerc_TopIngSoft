@@ -1,0 +1,20 @@
+{% extends "pages/base.html" %}
+
+{% block nav_links %}
+<!-- debe mejorarse para detectar sesiones iniciadas -->
+<a class="nav-link active" href="{% url 'signIn' %}">Sign In</a>
+{% endblock nav_links %}
+
+{% block content %}
+{% if not registered %}
+<div class="container py-5">
+  <!-- Form -->
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Registrarse</button>
+</form>
+  <!-- Form -->
+</div>
+{% endif %}
+{% endblock %}

@@ -2,8 +2,8 @@
 
 {% block nav_links %}
 <!-- debe mejorarse para detectar sesiones iniciadas -->
-<a class="nav-link active" href>Sign In</a>
-<a class="nav-link active" href>Sign Up</a>
+<a class="nav-link active" href=>Sign In</a>
+<a class="nav-link active" href="{% url 'signUp' %}">Sign Up</a>
 {% endblock nav_links %}
 
 {% block content %}

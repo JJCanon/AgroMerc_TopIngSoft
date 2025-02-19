@@ -1,0 +1,19 @@
+{% extends "pages/base.html" %}
+
+{% block nav_links %}
+<!-- debe mejorarse para detectar sesiones iniciadas -->
+<a class="nav-link active" href="{% url 'signUp' %}">Sign Up</a>
+{% endblock nav_links %}
+
+{% block content %}
+<div class="container py-5">
+  <!-- Form -->
+  <h1>Iniciar Sesión</h1>
+  <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Iniciar Sesión</button>
+  </form>
+  <!-- Form -->
+</div>
+{% endblock %}

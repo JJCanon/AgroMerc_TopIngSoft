@@ -1,6 +1,9 @@
 from django import forms
 from .models import UserModel
 
+# Sign Up
+from django import forms
+from .models import UserModel
 
 class UserForm(forms.ModelForm):
     
@@ -10,7 +13,7 @@ class UserForm(forms.ModelForm):
         initial='buyer',  # Opción por defecto
     )
     
-    class meta:
+    class Meta:  # ¡Aquí debe ser "Meta" con mayúscula!
         model = UserModel
         fields = [
             'fullName',
@@ -22,7 +25,7 @@ class UserForm(forms.ModelForm):
             'password',
             'userType'
         ]
-        labels={
+        labels = {
             'fullName': 'Nombres Completos',
             'fullLastName': 'Apellidos Completos',
             'idNumber': 'Número de Cédula',
@@ -32,6 +35,11 @@ class UserForm(forms.ModelForm):
             'password': 'Contraseña',
             'userType': 'Tipo de Usuario',
         }
-        widgets={
-            'password': forms.PasswordInput(), # visualizacion de contraseña
+        widgets = {
+            'password': forms.PasswordInput(),  # Visualización de contraseña
         }
+        
+# Sign In
+class SignInForm(forms.Form):
+    userName = forms.CharField( max_length=255, label="Nombre de Usuario")
+    password = forms.CharField( max_length=255, label="Contraseña", widget=forms.PasswordInput())
