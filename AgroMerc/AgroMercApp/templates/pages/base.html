@@ -1,0 +1,121 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Bootstrap -->
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+            rel="stylesheet">
+        <!-- Styles -->
+        <link href="{% static 'styles/app.css' %}" rel="stylesheet" />
+        <title>AgroMerc</title>
+    </head>
+    <body>
+        <!-- Header -->
+        <header>
+            <!-- Barra de navegación superior -->
+            <nav
+                class="navbar navbar-expand-lg navbar-dark bg-success py-3 shadow-sm">
+                <div class="container">
+                    <!-- Logo y nombre del sitio -->
+                    <a class="navbar-brand d-flex align-items-center"
+                        href="{% url 'AgroMerc' %}">
+                        <img src="{% static 'images/AgroMerc.jpg' %}"
+                            alt="AgroMerc" class="img-fluid me-2"
+                            style="max-height: 40px;">
+                        <span class="fs-4 fw-bold">AgroMerc</span>
+                    </a>
+
+                    <!-- Botón para menú colapsable en móviles -->
+                    <button class="navbar-toggler" type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#navbarNavAltMarkup"
+                        aria-controls="navbarNavAltMarkup" aria-expanded="false"
+                        aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <!-- Menú de navegación -->
+                    <div class="collapse navbar-collapse"
+                        id="navbarNavAltMarkup">
+                        <div class="navbar-nav ms-auto">
+                            <!-- Espacio para agregar enlaces o botones en el futuro -->
+                            {% block nav_links %}
+                            {% endblock nav_links %}
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <!-- Fin del Header -->
+
+        <!-- Contenido principal -->
+        <main class="container my-5">
+            <div class="row">
+                <!-- Publicidad izquierda -->
+                <div class="col-md-2 d-none d-md-block">
+                    <div class="card shadow-sm">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Publicidad</h5>
+                            <p class="card-text">Espacio para anuncios.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contenido dinámico -->
+                <div class="col-md-8">
+                    {% block content %}
+                    <!-- Aquí va el contenido dinámico de Django -->
+                    {% endblock content %}
+                </div>
+
+                <!-- Publicidad derecha -->
+                <div class="col-md-2 d-none d-md-block">
+                    <div class="card shadow-sm">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Publicidad</h5>
+                            <p class="card-text">Espacio para anuncios.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <!-- Fin del contenido principal -->
+
+        <!-- Footer -->
+        <footer class="bg-light py-4 shadow-sm">
+            <div class="container">
+                <div class="row align-items-center">
+                    <!-- Logo en el footer -->
+                    <div class="col-md-4 text-center">
+                        <img src="{% static 'images/AgroMerc.jpg' %}"
+                            alt="AgroMerc" class="img-fluid"
+                            style="max-height: 50px;">
+                    </div>
+
+                    <!-- Texto central -->
+                    <div class="col-md-4 text-center">
+                        <h3 class="mb-3">AgroMerc</h3>
+                        <p class="mb-0">Tu mercado agrícola en línea.</p>
+                    </div>
+
+                    <!-- Botón "About Us" -->
+                    <div class="col-md-4 text-center">
+                        <a href="{% url 'AgroMerc' %}"
+                            class="btn btn-success btn-lg">
+                            About Us
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- Fin del Footer -->
+
+        <!-- Bootstrap JS -->
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+            crossorigin="anonymous"></script>
+    </body>
+</html>
