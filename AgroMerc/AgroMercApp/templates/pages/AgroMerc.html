@@ -2,9 +2,18 @@
 
 {% block nav_links %}
 <!-- debe mejorarse para detectar sesiones iniciadas -->
-<a class="nav-link active" href=>Sign In</a>
-<a class="nav-link active" href="{% url 'signUp' %}">Sign Up</a>
+ {% if not user.is_authenticated %}
+ <a class="nav-link active" href="{% url "signIn" %}">Iniciar Sesión</a>
+ <a class="nav-link active" href="{% url 'signUp' %}">Registrarse</a>
+ {% endif %}
 {% endblock nav_links %}
+{% block authenticated_links %}
+<a class="nav-link active" href="{% url 'home' %}">Menú Principal</a>
+{% if user.userType == 'seller' %}
+<a class="nav-link active" href="{% url 'createProduct' %}">Agregar Producto</a>
+<a class="nav-link active" href="myProducts">Mis Productos</a>
+{% endif %}
+{% endblock  %}
 
 {% block content %}
 <div class="container py-5">

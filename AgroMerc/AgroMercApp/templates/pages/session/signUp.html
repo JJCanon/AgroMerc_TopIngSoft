@@ -1,20 +1,17 @@
 {% extends "pages/base.html" %}
 
 {% block nav_links %}
-<!-- debe mejorarse para detectar sesiones iniciadas -->
-<a class="nav-link active" href="{% url 'signIn' %}">Sign In</a>
+<a class="nav-link active" href="{% url 'AgroMerc' %}">AgroMerc</a>
+<a class="nav-link active" href="{% url 'signIn' %}">Iniciar Sesión</a>
 {% endblock nav_links %}
 
 {% block content %}
-{% if not registered %}
-<div class="container py-5">
-  <!-- Form -->
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Registrarse</button>
-</form>
-  <!-- Form -->
+<div class="container">
+    <h2>Registro</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-success">Registrarse</button>
+    </form>
 </div>
-{% endif %}
 {% endblock %}

@@ -1,0 +1,21 @@
+{% extends "pages/base.html" %}
+
+{% block nav_links %}
+{% endblock %}
+
+{% block authenticated_links %}
+<a class="nav-link active" href="{% url 'home' %}">Home</a>
+<a class="nav-link active" href="{% url 'myProducts' %}">Mis Productos</a>
+{% endblock  %}
+
+{% block content %}
+<div class="container py-5">
+    <h2>Editar Producto</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-success">Guardar Cambios</button>
+        <a href="{% url 'myProducts' %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+{% endblock %}

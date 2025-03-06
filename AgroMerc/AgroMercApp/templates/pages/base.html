@@ -24,8 +24,7 @@
                         href="{% url 'AgroMerc' %}">
                         <img src="{% static 'images/AgroMerc.jpg' %}"
                             alt="AgroMerc" class="img-fluid me-2"
-                            style="max-height: 40px;">
-                        <span class="fs-4 fw-bold">AgroMerc</span>
+                            style="max-height: 60px;">
                     </a>
 
                     <!-- Botón para menú colapsable en móviles -->
@@ -42,8 +41,18 @@
                         id="navbarNavAltMarkup">
                         <div class="navbar-nav ms-auto">
                             <!-- Espacio para agregar enlaces o botones en el futuro -->
+                            <!-- links generales -->
                             {% block nav_links %}
                             {% endblock nav_links %}
+                            <!-- links para usuarios autenticados -->
+                            {% if user.is_authenticated %}
+                            {% block authenticated_links %}
+                            {% endblock authenticated_links %}
+                            <form action="{% url 'signOut' %}" method="post">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger">Cerrar Sesión</button>
+                            </form>
+                            {% endif %}
                         </div>
                     </div>
                 </div>

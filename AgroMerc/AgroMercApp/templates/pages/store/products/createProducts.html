@@ -1,0 +1,20 @@
+{% extends "pages/base.html" %}
+
+{% block nav %}
+
+{% endblock %}
+
+{% block authenticated_links %}
+<a class="nav-link active" href="{% url 'home' %}">Menú Principal</a>
+{% endblock  %}
+
+{% block content %}
+<div class="container">
+    <h2>Crear Producto</h2>
+    <form method="post">
+        {% csrf_token %}  <!-- Token CSRF para seguridad -->
+        {{ form.as_p }}  <!-- Muestra el formulario -->
+        <button type="submit" class="btn btn-success">Guardar</button>
+    </form>
+</div>
+{% endblock %}
