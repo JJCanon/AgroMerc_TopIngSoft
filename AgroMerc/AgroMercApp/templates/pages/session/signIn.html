@@ -1,0 +1,17 @@
+{% extends "pages/base.html" %}
+
+{% block nav_links %}
+<a class="nav-link active" href="{% url 'AgroMerc' %}">AgroMerc</a>
+<a class="nav-link active" href="{% url 'signUp' %}">Registrarse</a>
+{% endblock nav_links %}
+
+{% block content %}
+<div class="container">
+    <h2>Inicio de Sesión</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-success">Iniciar Sesión</button>
+    </form>
+</div>
+{% endblock %}
