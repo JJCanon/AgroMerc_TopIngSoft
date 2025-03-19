@@ -1,6 +1,6 @@
 # urls.py
 from django.urls import path
-from .views import AgroMercView,SignUpView,SignInView,HomeView,CreateProductView, MyProductsView, EditProductView, DeleteProductView
+from .views import AgroMercView,SignUpView,SignInView,HomeView,CreateProductView, MyProductsView, EditProductView, DeleteProductView, SearchProductView
 from django.contrib.auth.views import LogoutView
 urlpatterns = [
     path('',AgroMercView.as_view(),name='AgroMerc'),
@@ -12,4 +12,5 @@ urlpatterns = [
     path('myProducts/', MyProductsView.as_view(), name='myProducts'),
     path('editProducto/<int:pk>/', EditProductView.as_view(), name='editProduct'),
     path('deleteProduct/<int:pk>/', DeleteProductView.as_view(), name='deleteProduct'),
+    path('searchProduct/', SearchProductView.as_view(), name='searchProduct')
 ]   
