@@ -98,6 +98,21 @@ class DeleteProductView(LoginRequiredMixin, DeleteView):
     def get_queryset(self):
         return ProductModel.objects.filter(seller=self.request.user)
     
+class SearchProductView(LoginRequiredMixin, ListView):
+    model = ProductModel
+    template_name = 'pages/store/home.html'  
+    context_object_name = 'products'
+
+    def get_queryset(self):
+        query = self.request.GET.get('q', '')
+        if query:
+            return ProductModel.objects.filter(productName__icontains=query)
+        return ProductModel.objects.all()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['search_query'] = self.request.GET.get('q', '') 
+        return context
 
 #Diccionarios
 
