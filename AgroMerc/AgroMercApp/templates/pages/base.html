@@ -50,7 +50,9 @@
                             {% endblock authenticated_links %}
                             <form action="{% url 'signOut' %}" method="post">
                                 {% csrf_token %}
-                                <button type="submit" class="btn btn-danger">Cerrar Sesión</button>
+                                <button type="submit"
+                                    class="btn btn-danger">Cerrar
+                                    Sesión</button>
                             </form>
                             {% endif %}
                         </div>

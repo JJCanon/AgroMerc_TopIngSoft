@@ -17,7 +17,7 @@ class UserSignInForm(AuthenticationForm):
 class ProductForm(forms.ModelForm):
     class Meta:
         model = ProductModel
-        fields = ['productName', 'specificName', 'maxQuantity', 'minQuantity', 'unit']
+        fields = ['productName', 'specificName', 'maxQuantity', 'minQuantity', 'unit', 'pricePeerUnit']
         
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -26,4 +26,5 @@ class ProductForm(forms.ModelForm):
         self.fields['maxQuantity'].widget.attrs.update({'class': 'form-control'})
         self.fields['minQuantity'].widget.attrs.update({'class': 'form-control'})
         self.fields['unit'].widget.attrs.update({'class': 'form-control'})
+        self.fields['pricePeerUnit'].widget.attrs.update({'class': 'form-control'})
         
