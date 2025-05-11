@@ -30,9 +30,30 @@
                 <input type="text" name="q" class="form-control" placeholder="Buscar producto..." value="{{ request.GET.q }}">
                 <button class="btn btn-primary" type="submit">Buscar</button>
             </div>
+
+            <div class="input-group mt-2">
+                <select name="categoria" class="form-select" onchange="this.form.submit()">
+                    <option value="">-- Todas las categorías --</option>
+                    {% for cat in categorias %}
+                        <option value="{{ cat }}" {% if cat == selected_category %}selected{% endif %}>{{ cat }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            
+            <div class="input-group mt-2">
+                <select name="seller" class="form-select" onchange="this.form.submit()">
+                    <option value="">-- Todos los vendedores --</option>
+                    {% for vendedor in sellers %}
+                        <option value="{{ vendedor.username }}" {% if vendedor.username == selected_seller %}selected{% endif %}>
+                            {{ vendedor.get_full_name|default:vendedor.username }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>            
         </form>
     </div>
 </div>
+
 
 <!-- Lista de productos -->
 <div class="row mt-5">
@@ -47,8 +68,8 @@
                     <strong>Cantidad mínima:</strong> {{ product.minQuantity }} {{ product.unit }}<br>
                     <strong>Categorías:</strong> {{ product.categories }}<br>
                     <strong>Vendedor:</strong> {{ product.seller.fullname }} {{ product.seller.fullLastName }}<br>
-                    <strong>Cédula del vendedor:</strong> {{ product.sellerId }}
-                    <strong>Unidad:</strong> {{ product.unit }}
+                    <strong>Cédula del vendedor:</strong> {{ product.sellerId }}<br>
+                    <strong>Unidad:</strong> {{ product.unit }} <br>
                     <strong>Precio por Unidad:</strong> ${{ product.pricePeerUnit }}
                 </p>
                 <!-- Formulario para añadir al carrito con cantidad -->

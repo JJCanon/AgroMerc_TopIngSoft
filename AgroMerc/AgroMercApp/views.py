@@ -1,11 +1,12 @@
 from django.shortcuts import get_object_or_404, render, redirect
-from django.views.generic import TemplateView,CreateView,ListView,UpdateView,DeleteView,View
+from django.views.generic import TemplateView, CreateView, ListView, UpdateView, DeleteView, View
 from .forms import UserSignUpForm, UserSignInForm, ProductForm
 from .models import OrderModel, OrderItemModel, UserModel, ProductModel, cartModel
 from django.urls import reverse_lazy
 from django.contrib import messages
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth import get_user_model
 
 
 # AgroMerc View
@@ -104,14 +105,33 @@ class SearchProductView(LoginRequiredMixin, ListView):
     context_object_name = 'products'
 
     def get_queryset(self):
+        products = ProductModel.objects.all()
         query = self.request.GET.get('q', '')
+        category = self.request.GET.get('categoria', '')
+        seller = self.request.GET.get('seller', '')
+
         if query:
-            return ProductModel.objects.filter(productName__icontains=query)
-        return ProductModel.objects.all()
+            products = products.filter(productName__icontains=query)
+        if category:
+            filtred_products = [
+                name for name, categories in CATEGORIES.items() if category in categories
+            ]
+            products = products.filter(productName__in=filtred_products)
+        if seller:
+            products = products.filter(seller__username=seller)
+        return products
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['search_query'] = self.request.GET.get('q', '') 
+        context['selected_category'] = self.request.GET.get('categoria', '')
+        context['selected_seller'] = self.request.GET.get('seller', '')
+
+        unique_categories = sorted(set(cat for sub in CATEGORIES.values() for cat in sub))
+        context['categorias'] = unique_categories
+        
+        User = get_user_model()
+        context['sellers'] = User.objects.filter(productmodel__isnull=False).distinct()
         return context
 
 
