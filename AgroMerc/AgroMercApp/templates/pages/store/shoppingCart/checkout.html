@@ -1,0 +1,36 @@
+{% extends "pages/base.html" %}
+
+{% block content %}
+<div class="container py-5">
+    <h2>Confirmar Pedido</h2>
+    <div class="row mt-5">
+        <div class="col-md-8">
+            <h4>Resumen del Carrito</h4>
+            {% for item in cartItems %}
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">{{ item.product.productName }}</h5>
+                    <p class="card-text">
+                        <strong>Cantidad:</strong> {{ item.quantity }}<br>
+                        <strong>Precio unitario:</strong> ${{ item.product.pricePeerUnit }}<br>
+                        <strong>Total:</strong> ${{ item.totalPrice }}
+                    </p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="col-md-4">
+            <h4>Total del Pedido</h4>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Total: ${{ totalPrice }}</h5>
+                    <form method="post" action="{% url 'checkout' %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-success btn-block">Confirmar Pedido</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

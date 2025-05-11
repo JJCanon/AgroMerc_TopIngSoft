@@ -3,6 +3,7 @@
 {% block nav_links %}
 {% endblock %}
 {% block authenticated_links %}
+<a class="nav-link active" href="{% url 'cart' %}">Carrito</a>
 <!-- if userType = seller --> 
 {% if user.userType == 'seller' %}
 <a class="nav-link active" href="{% url 'createProduct' %}">Agregar Producto</a>
@@ -47,7 +48,18 @@
                     <strong>Categorías:</strong> {{ product.categories }}<br>
                     <strong>Vendedor:</strong> {{ product.seller.fullname }} {{ product.seller.fullLastName }}<br>
                     <strong>Cédula del vendedor:</strong> {{ product.sellerId }}
+                    <strong>Unidad:</strong> {{ product.unit }}
+                    <strong>Precio por Unidad:</strong> ${{ product.pricePeerUnit }}
                 </p>
+                <!-- Formulario para añadir al carrito con cantidad -->
+                <form action="{% url 'addToCart' product.id %}" method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="quantity-{{ product.id }}">Cantidad:</label>
+                        <input type="number" id="quantity-{{ product.id }}" name="quantity" class="form-control" min="{{ product.minQuantity }}" max="{{ product.maxQuantity }}" value="{{ product.minQuantity }}" required>
+                    </div>
+                    <button type="submit" class="btn btn-success">Añadir al carrito</button>
+                </form>
             </div>
         </div>
     </div>
@@ -60,3 +72,4 @@
     {% endfor %}
 </div>
 {% endblock content %}
+

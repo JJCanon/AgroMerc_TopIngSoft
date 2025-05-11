@@ -1,7 +1,7 @@
-from django.shortcuts import render, redirect
-from django.views.generic import TemplateView,CreateView,ListView,UpdateView,DeleteView
+from django.shortcuts import get_object_or_404, render, redirect
+from django.views.generic import TemplateView,CreateView,ListView,UpdateView,DeleteView,View
 from .forms import UserSignUpForm, UserSignInForm, ProductForm
-from .models import UserModel, ProductModel
+from .models import OrderModel, OrderItemModel, UserModel, ProductModel, cartModel
 from django.urls import reverse_lazy
 from django.contrib import messages
 from django.contrib.auth.views import LoginView
@@ -114,6 +114,133 @@ class SearchProductView(LoginRequiredMixin, ListView):
         context['search_query'] = self.request.GET.get('q', '') 
         return context
 
+
+# Cart view
+class CartView(LoginRequiredMixin, ListView):
+    model = cartModel
+    template_name = 'pages/store/shoppingCart/shoppingCart.html'
+    context_object_name = 'cartItems'
+
+    def get_queryset(self):
+        # Filtra los elementos del carrito por el usuario actual
+        return cartModel.objects.filter(user=self.request.user)
+
+
+# Add to Cart View
+class AddToCartView(View):
+    def post(self, request, productId):
+        # Obtén el producto o devuelve un error 404 si no existe
+        product = get_object_or_404(ProductModel, id=productId)
+        
+        # Obtén la cantidad ingresada por el usuario
+        quantity = int(request.POST.get('quantity', product.minQuantity))  # Valor predeterminado: cantidad mínima
+        
+        # Verifica si el producto ya está en el carrito del usuario
+        cartItem, created = cartModel.objects.get_or_create(
+            user=request.user,
+            product=product,
+            defaults={'quantity': quantity}  # Cantidad ingresada por el usuario
+        )
+        
+        if not created:
+            # Si el producto ya está en el carrito, incrementa la cantidad
+            cartItem.quantity += quantity
+            cartItem.save()
+        
+        # Mensaje de éxito
+        messages.success(request, f'"{product.productName}" (x{quantity}) ha sido añadido al carrito.')
+        
+        # Redirige al usuario a la página anterior
+        return redirect(request.META.get('HTTP_REFERER', 'home'))
+
+# Edit Cart View
+class EditCartProductView(View):
+    def post(self,request,productId):
+        cartItem = get_object_or_404(cartModel, id = productId, user=request.user)
+        newQuantity = int(request.POST.get('quantity', cartItem.quantity))
+        
+        # Validar que la nueva cantida esté dentro del rango permitido
+        if newQuantity < cartItem.product.minQuantity:
+            messages.error(request,f'la cantidad mínima permitida es {cartItem.product.minQuantity}.')
+        elif newQuantity > cartItem.product.maxQuantity:
+            messages.error(request,f'la cantidad máxima permitida es {cartItem.product.maxQuantity}.')
+        else:
+            cartItem.quantity = newQuantity
+            cartItem.save()
+            messages.success(request,f'La cantidad de "{cartItem.product.productName}" ha sido actualizada a {newQuantity}.')
+            
+        return redirect('cart')
+
+# Delete Cart View
+class DeleteCartProductView(View):
+    def post(self,request,productId):
+        cartItem = get_object_or_404(cartModel, id = productId, user=request.user)
+        cartItem.delete()
+        messages.success(request,f'"{cartItem.product.productName}" ha sido eliminado del carrito.')
+        return redirect('cart')
+
+# Confirmation Pay View
+class CheckoutView(LoginRequiredMixin, View):
+    def get(self, request):
+        cartItems = cartModel.objects.filter(user=request.user)
+        if not cartItems.exists():
+            messages.warning(request, 'No hay productos en el carrito.')
+            return redirect('cart')
+        
+        # Calcular el total del carrito
+        totalPrice = sum(item.totalPrice() for item in cartItems)
+        
+        # Renderizar la página de confirmación de pago
+        return render(request, 'pages/store/shoppingCart/checkout.html', {
+            'cartItems': cartItems,
+            'totalPrice': totalPrice,
+        })
+    
+    def post(self, request):
+        cartItems = cartModel.objects.filter(user=request.user)
+        if not cartItems.exists():
+            messages.warning(request, 'No hay productos en el carrito.')
+            return redirect('cart')
+        
+        # Crear el pedido
+        totalPrice = sum(item.totalPrice() for item in cartItems)
+        order = OrderModel.objects.create(
+            user=request.user,
+            totalPrice=totalPrice,
+        )
+        
+        # Crear los items del pedido y actualizar las cantidades máximas
+        for cartItem in cartItems:
+            # Reducir la cantidad máxima del producto
+            product = cartItem.product
+            product.maxQuantity -= cartItem.quantity
+            if product.maxQuantity < 0:  # Evitar cantidades negativas
+                product.maxQuantity = 0
+            product.save()
+            
+            # Crear el item del pedido
+            OrderItemModel.objects.create(
+                order=order,
+                product=product,
+                quantity=cartItem.quantity,
+                price=product.pricePeerUnit,
+            )
+        
+        # Vaciar el carrito
+        cartItems.delete()
+        
+        messages.success(request, 'Pedido realizado con éxito.')
+        return redirect('orderConfirmation', orderId=order.id)
+
+# Order Confirmation View
+class OrderConfirmationView(LoginRequiredMixin, View):
+    def get(self, request, orderId):
+        order = get_object_or_404(OrderModel, id=orderId, user=request.user)
+        return render(request, 'pages/store/shoppingCart/orderConfirmation.html', {
+            'order': order,
+        })
+        
+        
 #Diccionarios
 
 #categorias de productos
