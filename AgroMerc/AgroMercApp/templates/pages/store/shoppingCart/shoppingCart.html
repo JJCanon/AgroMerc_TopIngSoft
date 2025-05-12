@@ -1,51 +1,45 @@
 {% extends "pages/base.html" %}
+{% load i18n %}
 
 {% block authenticated_links %}
-<a class="nav-link active" href="{% url 'home' %}">Menú Principal</a>
-<!-- if userType = seller -->
+<a class="nav-link btn btn-outline-dark text-light" href="{% url 'home' %}">{% trans "Menú Principal" %}</a>
 {% if user.userType == 'seller' %}
-<a class="nav-link active" href="{% url 'myProducts' %}">Mis Productos</a>
+<a class="nav-link btn btn-outline-dark text-light" href="{% url 'myProducts' %}">{% trans "Mis Productos" %}</a>
 {% endif %}
 {% endblock %}
 
 {% block content %}
 <div class="container py-5">
-    <h2>Carrito de Compras</h2>
+    <h2>{% trans "Carrito de Compras" %}</h2>
     <div class="row mt-5">
         {% for item in cartItems %}
         <div class="col-md-4 mb-4">
             <div class="card h-100">
                 <div class="card-body">
                     <h5 class="card-title">{{ item.product.productName }}</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">{{item.product.specificName }}</h6>
+                    <h6 class="card-subtitle mb-2 text-muted">{{ item.product.specificName }}</h6>
                     <p class="card-text">
-                        <strong>Cantidad:</strong> {{ item.quantity }}<br>
-                        <strong>Precio unitario:</strong> ${{item.product.pricePeerUnit }}<br>
-                        <strong>Total:</strong> ${{ item.totalPrice }}
-                        <!-- Usa el método totalPrice -->
+                        <strong>{% trans "Cantidad" %}:</strong> {{ item.quantity }}<br>
+                        <strong>{% trans "Precio unitario" %}:</strong> ${{ item.product.pricePeerUnit }}<br>
+                        <strong>{% trans "Total" %}:</strong> ${{ item.totalPrice }}
                     </p>
                     <!-- Formulario para editar la cantidad -->
-                    <form action="{% url 'editCartProduct' item.id %}"
-                        method="post" class="mb-3">
+                    <form action="{% url 'editCartProduct' item.id %}" method="post" class="mb-3">
                         {% csrf_token %}
                         <div class="form-group">
-                            <label
-                                for="quantity-{{ item.id }}">Cantidad:</label>
-                            <input type="number" id="quantity-{{ productId }}"
-                                name="quantity" class="form-control"
-                                min="{{ item.product.minQuantity }}"
-                                max="{{ item.product.maxQuantity }}"
-                                value="{{ item.quantity }}" required>
+                            <label for="quantity-{{ item.id }}">{% trans "Cantidad" %}:</label>
+                            <input type="number" id="quantity-{{ item.id }}"
+                                   name="quantity" class="form-control"
+                                   min="{{ item.product.minQuantity }}"
+                                   max="{{ item.product.maxQuantity }}"
+                                   value="{{ item.quantity }}" required>
                         </div>
-                        <button type="submit" class="btn btn-warning">Editar
-                            Cantidad</button>
+                        <button type="submit" class="btn btn-warning">{% trans "Editar Cantidad" %}</button>
                     </form>
                     <!-- Botón para eliminar el producto del carrito -->
-                    <form action="{% url 'deleteCartProduct' item.id %}"
-                        method="post">
+                    <form action="{% url 'deleteCartProduct' item.id %}" method="post">
                         {% csrf_token %}
-                        <button type="submit" class="btn btn-danger">Eliminar
-                            del Carrito</button>
+                        <button type="submit" class="btn btn-danger">{% trans "Eliminar del Carrito" %}</button>
                     </form>
                 </div>
             </div>
@@ -53,15 +47,16 @@
         {% empty %}
         <div class="col-12">
             <div class="alert alert-info" role="alert">
-                Tu carrito está vacío.
+                {% trans "Tu carrito está vacío." %}
             </div>
         </div>
         {% endfor %}
         <!-- Botón para proceder al pago -->
         {% if cartItems %}
         <div class="text-center mt-4">
-            <a href="{% url 'checkout' %}"
-                class="btn btn-primary btn-lg">Proceder al Pago</a>
+            <a href="{% url 'checkout' %}" class="btn btn-primary btn-lg">
+                {% trans "Proceder al Pago" %}
+            </a>
         </div>
         {% endif %}
     </div>

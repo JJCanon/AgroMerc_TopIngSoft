@@ -1,20 +1,20 @@
 {% extends "pages/base.html" %}
+{% load i18n %}
 
 {% block nav %}
-
 {% endblock %}
 
 {% block authenticated_links %}
-<a class="nav-link active" href="{% url 'home' %}">Menú Principal</a>
+<a class="nav-link btn btn-outline-dark text-light" href="{% url 'home' %}">{% trans "Inicio" %}</a>
 {% endblock  %}
 
 {% block content %}
 <div class="container">
-    <h2>Crear Producto</h2>
+    <h2>{% trans "Crear Producto" %}</h2>
     <form method="post">
         {% csrf_token %}  <!-- Token CSRF para seguridad -->
         {{ form.as_p }}  <!-- Muestra el formulario -->
-        <button type="submit" class="btn btn-success">Guardar</button>
+        <button type="submit" class="btn btn-success">{% trans "Guardar" %}</button>
     </form>
 </div>
 {% endblock %}

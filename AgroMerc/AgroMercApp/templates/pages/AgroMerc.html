@@ -1,62 +1,55 @@
 {% extends "pages/base.html" %}
+{% load i18n %}
 
 {% block nav_links %}
-<!-- debe mejorarse para detectar sesiones iniciadas -->
- {% if not user.is_authenticated %}
- <a class="nav-link active" href="{% url "signIn" %}">Iniciar Sesión</a>
- <a class="nav-link active" href="{% url 'signUp' %}">Registrarse</a>
- {% endif %}
+    {% if not user.is_authenticated %}
+        <a class="nav-link btn btn-outline-dark text-light" href="{% url "signIn" %}">{% trans "Iniciar Sesión" %}</a>
+        <a class="nav-link btn btn-outline-dark text-light" href="{% url 'signUp' %}">{% trans "Registrarse" %}</a>
+    {% endif %}
 {% endblock nav_links %}
+
 {% block authenticated_links %}
-<a class="nav-link active" href="{% url 'home' %}">Menú Principal</a>
-{% if user.userType == 'seller' %}
-<a class="nav-link active" href="{% url 'createProduct' %}">Agregar Producto</a>
-<a class="nav-link active" href="myProducts">Mis Productos</a>
-{% endif %}
-{% endblock  %}
+    <a class="nav-link active" href="{% url 'home' %}">{% trans "Menú Principal" %}</a>
+    {% if user.userType == 'seller' %}
+        <a class="nav-link active" href="{% url 'createProduct' %}">{% trans "Agregar Producto" %}</a>
+        <a class="nav-link active" href="{% url 'myProducts' %}">{% trans "Mis Productos" %}</a>
+    {% endif %}
+{% endblock %}
 
 {% block content %}
 <div class="container py-5">
     <div class="row">
         <div class="col-12">
             <div class="h-100 p-5 text-center text-white bg-dark rounded-3">
-                <h1 class="display-4 fw-bold">¡¡¡Somos AgroMerc!!!</h1>
+                <h1 class="display-4 fw-bold">{% trans "¡¡¡Somos AgroMerc!!!" %}</h1>
             </div>
         </div>
     </div>
     <div class="row mt-5">
         <div class="col-lg-10 mx-auto">
             <div class="infoAgroMerc bg-light p-4 rounded-3 shadow">
-                <p class="fs-5 mb-4">En la industria agrícola, muchos campesinos
-                    enfrentan dificultades al vender sus productos a un precio
-                    justo que les brinde estabilidad financiera. A menudo, esto
-                    se debe a la falta de información sobre el stock disponible,
-                    lo que los obliga a vender a precios bajos, regalar o
-                    incluso desechar sus productos. Por otro lado, los
-                    consumidores también se ven afectados al tener que pagar
-                    precios elevados debido a la escasez de productos en el
-                    mercado causada por estas circunstancias.</p>
-                <p class="fs-5 mb-4">Con el objetivo de establecer una conexión
-                    directa entre los campesinos y los consumidores, hemos
-                    creado este sitio web. Nuestra plataforma busca facilitar
-                    una comunicación directa entre ambas partes, mejorando así
-                    la calidad de vida de quienes se dedican a la agricultura y
-                    al mismo tiempo ayudando a los consumidores a ahorrar
-                    dinero.</p>
-                <p class="fs-5 mb-4">En nuestro sitio web, los campesinos podrán
-                    mostrar y ofrecer sus productos directamente a los
-                    consumidores, sin intermediarios, lo que les permitirá
-                    obtener un precio justo por su trabajo. A su vez, los
-                    consumidores podrán acceder a una amplia variedad de
-                    productos frescos y de calidad a precios más accesibles.</p>
-                <p class="fs-5 mb-0">Nuestra misión es fomentar la transparencia
-                    y equidad en la industria agrícola, beneficiando tanto a los
-                    productores como a los consumidores. Juntos, podemos
-                    construir un sistema más justo y sostenible para todos los
-                    involucrados en el sector agrícola.</p>
+                <p class="fs-5 mb-4">
+                    {% blocktrans %}
+                    En la industria agrícola, muchos campesinos enfrentan dificultades al vender sus productos a un precio justo que les brinde estabilidad financiera. A menudo, esto se debe a la falta de información sobre el stock disponible, lo que los obliga a vender a precios bajos, regalar o incluso desechar sus productos. Por otro lado, los consumidores también se ven afectados al tener que pagar precios elevados debido a la escasez de productos en el mercado causada por estas circunstancias.
+                    {% endblocktrans %}
+                </p>
+                <p class="fs-5 mb-4">
+                    {% blocktrans %}
+                    Con el objetivo de establecer una conexión directa entre los campesinos y los consumidores, hemos creado este sitio web. Nuestra plataforma busca facilitar una comunicación directa entre ambas partes, mejorando así la calidad de vida de quienes se dedican a la agricultura y al mismo tiempo ayudando a los consumidores a ahorrar dinero.
+                    {% endblocktrans %}
+                </p>
+                <p class="fs-5 mb-4">
+                    {% blocktrans %}
+                    En nuestro sitio web, los campesinos podrán mostrar y ofrecer sus productos directamente a los consumidores, sin intermediarios, lo que les permitirá obtener un precio justo por su trabajo. A su vez, los consumidores podrán acceder a una amplia variedad de productos frescos y de calidad a precios más accesibles.
+                    {% endblocktrans %}
+                </p>
+                <p class="fs-5 mb-0">
+                    {% blocktrans %}
+                    Nuestra misión es fomentar la transparencia y equidad en la industria agrícola, beneficiando tanto a los productores como a los consumidores. Juntos, podemos construir un sistema más justo y sostenible para todos los involucrados en el sector agrícola.
+                    {% endblocktrans %}
+                </p>
             </div>
         </div>
     </div>
 </div>
-
 {% endblock content %}

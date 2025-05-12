@@ -1,21 +1,23 @@
 {% extends "pages/base.html" %}
+{% load i18n %}
 
 {% block nav_links %}
-
 {% endblock %}
+
 {% block authenticated_links %}
-<a class="nav-link active" href="{% url 'home' %}">Menú Principal</a>
+<a class="nav-link btn btn-outline-dark text-light" href="{% url 'home' %}">{% trans "Inicio" %}</a>
 {% endblock %}
-
 
 {% block content %}
 <div class="container py-5">
-    <h2>¿Estás seguro de que quieres eliminar este producto?</h2>
-    <p><strong>Producto:</strong> {{ object.productName }} {{ object.specificName }}</p>
+    <h2>{% trans "¿Estás seguro de que quieres eliminar este producto?" %}</h2>
+    <p>
+        <strong>{% trans "Producto:" %}</strong> {{ object.productName }} {{ object.specificName }}
+    </p>
     <form method="post">
         {% csrf_token %}
-        <button type="submit" class="btn btn-danger">Sí, eliminar</button>
-        <a href="{% url 'myProducts' %}" class="btn btn-secondary">Cancelar</a>
+        <button type="submit" class="btn btn-danger">{% trans "Sí, eliminar" %}</button>
+        <a href="{% url 'myProducts' %}" class="btn btn-secondary">{% trans "Cancelar" %}</a>
     </form>
 </div>
 {% endblock %}

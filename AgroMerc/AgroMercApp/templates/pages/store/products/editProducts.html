@@ -1,21 +1,22 @@
 {% extends "pages/base.html" %}
+{% load i18n %}
 
 {% block nav_links %}
 {% endblock %}
 
 {% block authenticated_links %}
-<a class="nav-link active" href="{% url 'home' %}">Home</a>
-<a class="nav-link active" href="{% url 'myProducts' %}">Mis Productos</a>
-{% endblock  %}
+<a class="nav-link btn btn-outline-dark text-light" href="{% url 'home' %}">{% trans "Inicio" %}</a>
+<a class="nav-link btn btn-outline-dark text-light" href="{% url 'myProducts' %}">{% trans "Mis Productos" %}</a>
+{% endblock %}
 
 {% block content %}
 <div class="container py-5">
-    <h2>Editar Producto</h2>
+    <h2>{% trans "Editar Producto" %}</h2>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit" class="btn btn-success">Guardar Cambios</button>
-        <a href="{% url 'myProducts' %}" class="btn btn-secondary">Cancelar</a>
+        <button type="submit" class="btn btn-success">{% trans "Guardar Cambios" %}</button>
+        <a href="{% url 'myProducts' %}" class="btn btn-secondary">{% trans "Cancelar" %}</a>
     </form>
 </div>
 {% endblock %}
