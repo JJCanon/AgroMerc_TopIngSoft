@@ -1,6 +1,6 @@
 # urls.py
 from django.urls import path
-from .views import AgroMercView,SignUpView,SignInView,HomeView,CreateProductView,MyProductsView,EditProductView,DeleteProductView,SearchProductView,AddToCartView,CartView,EditCartProductView,DeleteCartProductView,CheckoutView,OrderConfirmationView
+from .views import AgroMercView,SignUpView,SignInView,HomeView,CreateProductView,MyProductsView,EditProductView,DeleteProductView,SearchProductView,AddToCartView,CartView,EditCartProductView,DeleteCartProductView,CheckoutView,OrderConfirmationView, OrderPDFDownloadView
 from django.contrib.auth.views import LogoutView
 urlpatterns = [
     path('',AgroMercView.as_view(),name='AgroMerc'),
@@ -19,4 +19,5 @@ urlpatterns = [
     path('deleteCartProduct/<int:productId>/', DeleteCartProductView.as_view(), name='deleteCartProduct'),
     path('checkout/', CheckoutView.as_view(), name='checkout'),
     path('orderConfirmation/<int:orderId>/', OrderConfirmationView.as_view(), name='orderConfirmation'),
+    path('order/<int:orderId>/download/',OrderPDFDownloadView.as_view(), name='downLoadOrderPDF'),
 ]  

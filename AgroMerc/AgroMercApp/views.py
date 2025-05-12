@@ -7,7 +7,8 @@ from django.contrib import messages
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import get_user_model
-
+from django.http import HttpResponse
+from .services.pdf_service import ReportLabPDFGenerator
 
 # AgroMerc View
 class AgroMercView(TemplateView):
@@ -260,6 +261,23 @@ class OrderConfirmationView(LoginRequiredMixin, View):
             'order': order,
         })
         
+
+# PDF Generation View
+class OrderPDFDownloadView(LoginRequiredMixin, View):
+    pdf_generator_class = ReportLabPDFGenerator  # Nombre correcto del atributo
+    
+    def get(self, request, *args, **kwargs):
+        order_id = kwargs.get('orderId')  # Coincide con el nombre en la URL
+        order = get_object_or_404(OrderModel, id=order_id, user=request.user)
+        order_items = OrderItemModel.objects.filter(order=order)
+        
+        # Usamos la clase directamente
+        pdf_generator = self.pdf_generator_class()
+        pdf_buffer = pdf_generator.generate_order_pdf(order, order_items)
+        
+        response = HttpResponse(pdf_buffer, content_type='application/pdf')
+        response['Content-Disposition'] = f'attachment; filename="orden_{order.id}.pdf"'
+        return response
         
 #Diccionarios
 
