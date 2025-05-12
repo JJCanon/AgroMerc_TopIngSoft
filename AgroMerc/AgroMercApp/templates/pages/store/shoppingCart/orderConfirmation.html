@@ -13,10 +13,10 @@
                     <h5 class="card-title">Pedido #{{ order_id }}</h5>
                     {% endblocktrans %}
                     <p class="card-text">
-                        <strong>{% trans "Fecha" %}:</strong> {{
-                        order.created_at }}<br>
-                        <strong>{% trans "Total" %}:</strong> ${{
-                        order.totalPrice }}
+                        <strong>{% trans "Fecha" %}:</strong>
+                        {{ order.created_at }}<br>
+                        <strong>{% trans "Total" %}:</strong>
+                        ${{ order.totalPrice }}
                     </p>
                     <h6>{% trans "Productos" %}:</h6>
                     <ul>
@@ -37,11 +37,13 @@
         <a href="{% url 'downLoadOrderPDF' order.id %}"
             class="btn btn-success me-2"
             target="_blank">
-            <i class="fas fa-file-pdf"></i> Descargar Comprobante
+            <i class="fas fa-file-pdf"></i>
+            {% trans Descargar Comprobante %}
         </a>
         <a href="{% url 'home' %}" class="btn btn-primary">Volver al Inicio</a>
-        <a href="{% url 'home' %}" class="btn btn-primary">{% trans
-            "Volver al Inicio" %}</a>
+        <a href="{% url 'home' %}" class="btn btn-primary">
+            {% trans "Volver al Inicio" %}
+        </a>
     </div>
 </div>
 {% endblock %}
