@@ -16,7 +16,9 @@
                     <h6>Productos:</h6>
                     <ul>
                         {% for item in order.items.all %}
-                        <li>{{ item.product.productName }} (x{{ item.quantity }}) - ${{ item.price }}</li>
+                        <li>{{ item.product.productName }}
+                            (x{{ item.quantity }}) - ${{ item.price }}
+                        </li>
                         {% endfor %}
                     </ul>
                 </div>
@@ -24,6 +26,11 @@
         </div>
     </div>
     <div class="text-center mt-4">
+        <a href="{% url 'downLoadOrderPDF' order.id %}"
+            class="btn btn-success me-2"
+            target="_blank">
+            <i class="fas fa-file-pdf"></i> Descargar Comprobante
+        </a>
         <a href="{% url 'home' %}" class="btn btn-primary">Volver al Inicio</a>
     </div>
 </div>
