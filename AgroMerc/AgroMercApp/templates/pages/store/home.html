@@ -1,13 +1,13 @@
 {% extends "pages/base.html" %}
+{% load i18n %}
 
 {% block nav_links %}
 {% endblock %}
 {% block authenticated_links %}
-<a class="nav-link active" href="{% url 'cart' %}">Carrito</a>
-<!-- if userType = seller --> 
+<a class="nav-link btn btn-outline-dark text-light" href="{% url 'cart' %}">{% trans "Carrito" %}</a>
 {% if user.userType == 'seller' %}
-<a class="nav-link active" href="{% url 'createProduct' %}">Agregar Producto</a>
-<a class="nav-link active" href="{% url 'myProducts' %}">Mis Productos</a>
+<a class="nav-link btn btn-outline-dark text-light" href="{% url 'createProduct' %}">{% trans "Agregar Producto" %}</a>
+<a class="nav-link btn btn-outline-dark text-light" href="{% url 'myProducts' %}">{% trans "Mis Productos" %}</a>
 {% endif %}
 {% endblock  %}
 
@@ -16,7 +16,7 @@
     <div class="row">
         <div class="col-12">
             <div class="h-100 p-5 text-center text-white bg-dark rounded-3">
-                <h1 class="display-4 fw-bold">¡¡¡Somos AgroMerc!!!</h1>
+                <h1 class="display-4 fw-bold">{% trans "¡¡¡Somos AgroMerc!!!" %}</h1>
             </div>
         </div>
     </div>
@@ -27,13 +27,13 @@
     <div class="col-md-6 offset-md-3">
         <form method="GET" action="{% url 'searchProduct' %}">
             <div class="input-group">
-                <input type="text" name="q" class="form-control" placeholder="Buscar producto..." value="{{ request.GET.q }}">
-                <button class="btn btn-primary" type="submit">Buscar</button>
+                <input type="text" name="q" class="form-control" placeholder="{% trans 'Buscar producto...' %}" value="{{ request.GET.q }}">
+                <button class="btn btn-primary" type="submit">{% trans "Buscar" %}</button>
             </div>
 
             <div class="input-group mt-2">
                 <select name="categoria" class="form-select" onchange="this.form.submit()">
-                    <option value="">-- Todas las categorías --</option>
+                    <option value="">{% trans "-- Todas las categorías --" %}</option>
                     {% for cat in categorias %}
                         <option value="{{ cat }}" {% if cat == selected_category %}selected{% endif %}>{{ cat }}</option>
                     {% endfor %}
@@ -42,7 +42,7 @@
             
             <div class="input-group mt-2">
                 <select name="seller" class="form-select" onchange="this.form.submit()">
-                    <option value="">-- Todos los vendedores --</option>
+                    <option value="">{% trans "-- Todos los vendedores --" %}</option>
                     {% for vendedor in sellers %}
                         <option value="{{ vendedor.username }}" {% if vendedor.username == selected_seller %}selected{% endif %}>
                             {{ vendedor.get_full_name|default:vendedor.username }}
@@ -54,7 +54,6 @@
     </div>
 </div>
 
-
 <!-- Lista de productos -->
 <div class="row mt-5">
     {% for product in products %}
@@ -64,33 +63,32 @@
                 <h5 class="card-title">{{ product.productName }}</h5>
                 <h6 class="card-subtitle mb-2 text-muted">{{ product.specificName }}</h6>
                 <p class="card-text">
-                    <strong>Cantidad máxima:</strong> {{ product.maxQuantity }} {{ product.unit }}<br>
-                    <strong>Cantidad mínima:</strong> {{ product.minQuantity }} {{ product.unit }}<br>
-                    <strong>Categorías:</strong> {{ product.categories }}<br>
-                    <strong>Vendedor:</strong> {{ product.seller.fullname }} {{ product.seller.fullLastName }}<br>
-                    <strong>Cédula del vendedor:</strong> {{ product.sellerId }}<br>
-                    <strong>Unidad:</strong> {{ product.unit }} <br>
-                    <strong>Precio por Unidad:</strong> ${{ product.pricePeerUnit }}
+                    <strong>{% trans "Cantidad máxima:" %}</strong> {{ product.maxQuantity }} {{ product.unit }}<br>
+                    <strong>{% trans "Cantidad mínima:" %}</strong> {{ product.minQuantity }} {{ product.unit }}<br>
+                    <strong>{% trans "Categorías:" %}</strong> {{ product.categories }}<br>
+                    <strong>{% trans "Vendedor:" %}</strong> {{ product.seller.fullname }} {{ product.seller.fullLastName }}<br>
+                    <strong>{% trans "Cédula del vendedor:" %}</strong> {{ product.sellerId }}<br>
+                    <strong>{% trans "Unidad:" %}</strong> {{ product.unit }}<br>
+                    <strong>{% trans "Precio por Unidad:" %}</strong> ${{ product.pricePeerUnit }}
                 </p>
                 <!-- Formulario para añadir al carrito con cantidad -->
                 <form action="{% url 'addToCart' product.id %}" method="post">
                     {% csrf_token %}
                     <div class="form-group">
-                        <label for="quantity-{{ product.id }}">Cantidad:</label>
+                        <label for="quantity-{{ product.id }}">{% trans "Cantidad:" %}</label>
                         <input type="number" id="quantity-{{ product.id }}" name="quantity" class="form-control" min="{{ product.minQuantity }}" max="{{ product.maxQuantity }}" value="{{ product.minQuantity }}" required>
                     </div>
-                    <button type="submit" class="btn btn-success">Añadir al carrito</button>
+                    <button type="submit" class="btn btn-success">{% trans "Añadir al carrito" %}</button>
                 </form>
             </div>
         </div>
     </div>
     {% empty %}
-        <div class="col-12">
-            <div class="alert alert-info" role="alert">
-                No hay productos disponibles.
-            </div>
+    <div class="col-12">
+        <div class="alert alert-info" role="alert">
+            {% trans "No hay productos disponibles." %}
         </div>
+    </div>
     {% endfor %}
 </div>
 {% endblock content %}
-

@@ -1,17 +1,18 @@
 {% extends "pages/base.html" %}
+{% load i18n %}
 
 {% block nav_links %}
-<a class="nav-link active" href="{% url 'AgroMerc' %}">AgroMerc</a>
-<a class="nav-link active" href="{% url 'signIn' %}">Iniciar Sesión</a>
+<a class="nav-link btn btn-outline-dark text-light" href="{% url 'AgroMerc' %}">{% trans "AgroMerc" %}</a>
+<a class="nav-link btn btn-outline-dark text-light" href="{% url 'signIn' %}">{% trans "Iniciar Sesión" %}</a>
 {% endblock nav_links %}
 
 {% block content %}
 <div class="container">
-    <h2>Registro</h2>
+    <h2>{% trans "Registro" %}</h2>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit" class="btn btn-success">Registrarse</button>
+        <button type="submit" class="btn btn-success">{% trans "Registrarse" %}</button>
     </form>
 </div>
 {% endblock %}

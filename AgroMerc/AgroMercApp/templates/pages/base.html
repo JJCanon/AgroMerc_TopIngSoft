@@ -1,130 +1,141 @@
 {% load static %}
+{% load i18n %}
 <!DOCTYPE html>
-<html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <!-- Bootstrap -->
-        <link
-            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-            rel="stylesheet">
-        <!-- Styles -->
-        <link href="{% static 'styles/app.css' %}" rel="stylesheet" />
-        <title>AgroMerc</title>
-    </head>
-    <body>
-        <!-- Header -->
-        <header>
-            <!-- Barra de navegación superior -->
-            <nav
-                class="navbar navbar-expand-lg navbar-dark bg-success py-3 shadow-sm">
-                <div class="container">
-                    <!-- Logo y nombre del sitio -->
-                    <a class="navbar-brand d-flex align-items-center"
-                        href="{% url 'AgroMerc' %}">
-                        <img src="{% static 'images/AgroMerc.jpg' %}"
-                            alt="AgroMerc" class="img-fluid me-2"
-                            style="max-height: 60px;">
-                    </a>
+<html lang="{{ LANGUAGE_CODE }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+    <!-- Styles -->
+    <link href="{% static 'styles/app.css' %}" rel="stylesheet" />
+    <title>AgroMerc</title>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <!-- Barra de navegación superior -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-success py-3 shadow-sm">
+            <div class="container">
+                <!-- Logo y nombre del sitio -->
+                <a class="navbar-brand d-flex align-items-center" href="{% url 'AgroMerc' %}">
+                    <img src="{% static 'images/AgroMerc.jpg' %}" alt="AgroMerc" class="img-fluid me-2" style="max-height: 60px;">
+                </a>
 
-                    <!-- Botón para menú colapsable en móviles -->
-                    <button class="navbar-toggler" type="button"
+                <!-- Botón para menú colapsable en móviles -->
+                <button class="navbar-toggler" type="button"
                         data-bs-toggle="collapse"
                         data-bs-target="#navbarNavAltMarkup"
-                        aria-controls="navbarNavAltMarkup" aria-expanded="false"
+                        aria-controls="navbarNavAltMarkup"
+                        aria-expanded="false"
                         aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
-                    <!-- Menú de navegación -->
-                    <div class="collapse navbar-collapse"
-                        id="navbarNavAltMarkup">
-                        <div class="navbar-nav ms-auto">
-                            <!-- Espacio para agregar enlaces o botones en el futuro -->
-                            <!-- links generales -->
-                            {% block nav_links %}
-                            {% endblock nav_links %}
-                            <!-- links para usuarios autenticados -->
-                            {% if user.is_authenticated %}
+                <!-- Menú de navegación -->
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav ms-auto">
+                        <!-- links generales -->
+                        {% block nav_links %}
+                        {% endblock nav_links %}
+
+                        <!-- links para usuarios autenticados -->
+                        {% if user.is_authenticated %}
                             {% block authenticated_links %}
                             {% endblock authenticated_links %}
-                            <form action="{% url 'signOut' %}" method="post">
+                            <form action="{% url 'signOut' %}" method="post" class="d-inline">
                                 {% csrf_token %}
-                                <button type="submit"
-                                    class="btn btn-danger">Cerrar
-                                    Sesión</button>
+                                <button type="submit" class="btn btn-danger ms-2">{% trans "Cerrar Sesión" %}</button>
                             </form>
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
-            </nav>
-        </header>
-        <!-- Fin del Header -->
+                        {% endif %}
 
-        <!-- Contenido principal -->
-        <main class="container my-5">
-            <div class="row">
-                <!-- Publicidad izquierda -->
-                <div class="col-md-2 d-none d-md-block">
-                    <div class="card shadow-sm">
-                        <div class="card-body text-center">
-                            <h5 class="card-title">Publicidad</h5>
-                            <p class="card-text">Espacio para anuncios.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Contenido dinámico -->
-                <div class="col-md-8">
-                    {% block content %}
-                    <!-- Aquí va el contenido dinámico de Django -->
-                    {% endblock content %}
-                </div>
-
-                <!-- Publicidad derecha -->
-                <div class="col-md-2 d-none d-md-block">
-                    <div class="card shadow-sm">
-                        <div class="card-body text-center">
-                            <h5 class="card-title">Publicidad</h5>
-                            <p class="card-text">Espacio para anuncios.</p>
+                        <!-- Selector de idioma -->
+                        <div class="nav-item dropdown ms-3">
+                            {% get_current_language as LANGUAGE_CODE %}
+                            {% get_available_languages as LANGUAGES %}
+                            {% get_language_info_list for LANGUAGES as languages %}
+                            <a class="nav-link dropdown-toggle btn btn-outline-dark text-light" href="#" id="languageDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                🌐 {% trans "Idioma" %}
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="languageDropdown">
+                                {% for lang in languages %}
+                                    <li>
+                                        <a class="dropdown-item" href="/{{ lang.code }}/">
+                                            {{ lang.name_local }}
+                                        </a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
                         </div>
                     </div>
                 </div>
             </div>
-        </main>
-        <!-- Fin del contenido principal -->
+        </nav>
+    </header>
+    <!-- Fin del Header -->
 
-        <!-- Footer -->
-        <footer class="bg-light py-4 shadow-sm">
-            <div class="container">
-                <div class="row align-items-center">
-                    <!-- Logo en el footer -->
-                    <div class="col-md-4 text-center">
-                        <img src="{% static 'images/AgroMerc.jpg' %}"
-                            alt="AgroMerc" class="img-fluid"
-                            style="max-height: 50px;">
-                    </div>
-
-                    <!-- Texto central -->
-                    <div class="col-md-4 text-center">
-                        <h3 class="mb-3">AgroMerc</h3>
-                        <p class="mb-0">Tu mercado agrícola en línea.</p>
-                    </div>
-
-                    <!-- Botón "About Us" -->
-                    <div class="col-md-4 text-center">
-                        <a href="{% url 'AgroMerc' %}"
-                            class="btn btn-success btn-lg">
-                            About Us
-                        </a>
+    <!-- Contenido principal -->
+    <main class="container my-5">
+        <div class="row">
+            <!-- Publicidad izquierda -->
+            <div class="col-md-2 d-none d-md-block">
+                <div class="card shadow-sm">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">{% trans "Publicidad" %}</h5>
+                        <p class="card-text">{% trans "Espacio para anuncios." %}</p>
                     </div>
                 </div>
             </div>
-        </footer>
-        <!-- Fin del Footer -->
 
-        <!-- Bootstrap JS -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>    
-    </body>
+            <!-- Contenido dinámico -->
+            <div class="col-md-8">
+                {% block content %}
+                <!-- Aquí va el contenido dinámico de Django -->
+                {% endblock content %}
+            </div>
+
+            <!-- Publicidad derecha -->
+            <div class="col-md-2 d-none d-md-block">
+                <div class="card shadow-sm">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">{% trans "Publicidad" %}</h5>
+                        <p class="card-text">{% trans "Espacio para anuncios." %}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <!-- Fin del contenido principal -->
+
+    <!-- Footer -->
+    <footer class="bg-light py-4 shadow-sm">
+        <div class="container">
+            <div class="row align-items-center">
+                <!-- Logo en el footer -->
+                <div class="col-md-4 text-center">
+                    <img src="{% static 'images/AgroMerc.jpg' %}" alt="AgroMerc" class="img-fluid" style="max-height: 50px;">
+                </div>
+
+                <!-- Texto central -->
+                <div class="col-md-4 text-center">
+                    <h3 class="mb-3">AgroMerc</h3>
+                    <p class="mb-0">{% trans "Tu mercado agrícola en línea." %}</p>
+                </div>
+
+                <!-- Botón "About Us" -->
+                <div class="col-md-4 text-center">
+                    <a href="{% url 'AgroMerc' %}" class="btn btn-success btn-lg">
+                        {% trans "Sobre Nosotros" %}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Fin del Footer -->
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>    
+</body>
 </html>
