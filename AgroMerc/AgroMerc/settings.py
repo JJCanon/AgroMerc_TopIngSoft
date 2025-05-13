@@ -24,7 +24,7 @@ SECRET_KEY = 'django-insecure-%0&j2l8$d!j6#51p#*@)b02^y0#qg5n(!s95jiht8py5i23!r*
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Custom User Model autentication
 AUTH_USER_MODEL = 'AgroMercApp.UserModel'
