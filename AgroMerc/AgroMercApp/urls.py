@@ -1,6 +1,7 @@
 # urls.py
 from django.urls import path
-from .views import AgroMercView,SignUpView,SignInView,HomeView,CreateProductView,MyProductsView,EditProductView,DeleteProductView,SearchProductView,AddToCartView,CartView,EditCartProductView,DeleteCartProductView,CheckoutView,OrderConfirmationView, OrderPDFDownloadView
+from .views import AgroMercView,SignUpView,SignInView,HomeView,CreateProductView,MyProductsView,EditProductView,DeleteProductView,SearchProductView,AddToCartView,CartView,EditCartProductView,DeleteCartProductView,CheckoutView,OrderConfirmationView, OrderPDFDownloadView, ListFavoritesView, AddToFavoritesView, RemoveFromFavoritesView, ProductosAliadosView
+from .api_views import ProductListAPIView
 from django.contrib.auth.views import LogoutView
 urlpatterns = [
     path('',AgroMercView.as_view(),name='AgroMerc'),
@@ -20,4 +21,9 @@ urlpatterns = [
     path('checkout/', CheckoutView.as_view(), name='checkout'),
     path('orderConfirmation/<int:orderId>/', OrderConfirmationView.as_view(), name='orderConfirmation'),
     path('order/<int:orderId>/download/',OrderPDFDownloadView.as_view(), name='downLoadOrderPDF'),
+    path('favorites/', ListFavoritesView.as_view(), name='favorites'),
+    path('addToFavorites/<int:productId>/', AddToFavoritesView.as_view(), name='addToFavorites'),
+    path('removeFromFavorites/<int:productId>/', RemoveFromFavoritesView.as_view(), name='removeFromFavorites'),
+    path('api/products/', ProductListAPIView.as_view(), name='api_products'),
+    path('productos-aliados/', ProductosAliadosView.as_view(), name='productosAliados'),
 ]  

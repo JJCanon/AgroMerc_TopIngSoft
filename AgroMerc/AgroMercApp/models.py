@@ -100,6 +100,28 @@ class OrderItemModel(models.Model):
     def __str__(self):
         return f"{self.product.productName} (x{self.quantity})"
     
+# Favorites model
+class FavoriteProduct(models.Model):
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        verbose_name='Usuario'
+    )
+    product = models.ForeignKey(
+        ProductModel,
+        on_delete=models.CASCADE,
+        verbose_name='Producto'
+    )
+    added_at = models.DateTimeField(
+        auto_now_add=True,
+        verbose_name='Fecha de adición'
+    )
 
+    class Meta:
+        unique_together = ('user', 'product')
+        verbose_name = 'Producto Favorito'
+        verbose_name_plural = 'Productos Favoritos'
 
-   
+    def __str__(self):
+        return f"{self.user.username} - {self.product.productName}"
+

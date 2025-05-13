@@ -1,0 +1,39 @@
+
+{% extends "pages/base.html" %}
+{% load i18n %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-12 text-center">
+            <h1 class="display-5">{% trans "Productos de Aliados" %}</h1>
+        </div>
+    </div>
+
+    {% if error %}
+        <div class="alert alert-danger mt-3">{{ error }}</div>
+    {% endif %}
+
+    <div class="row mt-4">
+        {% for product in aliados %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">{{ product.productName }}</h5>
+                    <h6 class="card-subtitle text-muted">{{ product.specificName }}</h6>
+                    <p class="card-text">
+                        <strong>{% trans "Precio:" %}</strong> ${{ product.pricePerUnit }}<br>
+                        <strong>{% trans "Unidad:" %}</strong> {{ product.unit }}<br>
+                        <strong>{% trans "Categorías:" %}</strong> {{ product.categories }}
+                    </p>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12 text-center">
+            <div class="alert alert-warning">{% trans "No hay productos aliados disponibles." %}</div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends "pages/base.html" %}
+{% load i18n %}
+
+{% block authenticated_links %}
+<a class="nav-link btn btn-outline-dark text-light" href="{% url 'cart' %}">{% trans "Carrito" %}</a>
+<a class="nav-link btn btn-outline-dark text-light" href="{% url 'home' %}">{% trans "Volver a la tienda" %}</a>
+{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-12">
+            <div class="h-100 p-5 text-center text-white bg-danger rounded-3">
+                <h1 class="display-4 fw-bold">{% trans "Mis Productos Favoritos" %}</h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        {% for favorite in favorites %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">{{ favorite.product.productName }}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">{{ favorite.product.specificName }}</h6>
+                    <p class="card-text">
+                        <strong>{% trans "Cantidad máxima:" %}</strong> {{ favorite.product.maxQuantity }} {{ favorite.product.unit }}<br>
+                        <strong>{% trans "Cantidad mínima:" %}</strong> {{ favorite.product.minQuantity }} {{ favorite.product.unit }}<br>
+                        <strong>{% trans "Categorías:" %}</strong> {{ favorite.product.categories }}<br>
+                        <strong>{% trans "Vendedor:" %}</strong> {{ favorite.product.seller.fullname }} {{ favorite.product.seller.fullLastName }}<br>
+                        <strong>{% trans "Precio por Unidad:" %}</strong> ${{ favorite.product.pricePeerUnit }}
+                    </p>
+
+                    <!-- Botón para eliminar de favoritos -->
+                    <form action="{% url 'removeFromFavorites' favorite.product.id %}" method="post" class="mt-2">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger w-100">
+                            ❌ {% trans "Eliminar de favoritos" %}
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <div class="alert alert-info text-center" role="alert">
+                {% trans "No tienes productos favoritos aún." %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

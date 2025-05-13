@@ -9,6 +9,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import get_user_model
 from django.http import HttpResponse
 from .services.pdf_service import ReportLabPDFGenerator
+from .models import ProductModel, FavoriteProduct
+import requests
 
 # AgroMerc View
 class AgroMercView(TemplateView):
@@ -58,7 +60,7 @@ class HomeView(LoginRequiredMixin, ListView):
 class CreateProductView(LoginRequiredMixin, CreateView):
     model = ProductModel
     form_class = ProductForm
-    template_name = 'pages\store\products\createProducts.html'
+    template_name = 'pages/store/products/createProducts.html'
     success_url = reverse_lazy('home')
     
     def form_valid(self, form):
@@ -278,7 +280,58 @@ class OrderPDFDownloadView(LoginRequiredMixin, View):
         response = HttpResponse(pdf_buffer, content_type='application/pdf')
         response['Content-Disposition'] = f'attachment; filename="orden_{order.id}.pdf"'
         return response
-        
+    
+class AddToFavoritesView(LoginRequiredMixin, View):
+    def post(self, request, productId):
+        product = get_object_or_404(ProductModel, id=productId)
+        _, created = FavoriteProduct.objects.get_or_create(user=request.user, product=product)
+
+        if created:
+            messages.success(request, f'"{product.productName}" ha sido añadido a tus favoritos.')
+        else:
+            messages.info(request, f'"{product.productName}" ya está en tus favoritos.')
+
+        return redirect(request.META.get('HTTP_REFERER', reverse_lazy('home')))
+
+
+class RemoveFromFavoritesView(LoginRequiredMixin, View):
+    def post(self, request, productId):
+        product = get_object_or_404(ProductModel, id=productId)
+        FavoriteProduct.objects.filter(user=request.user, product=product).delete()
+
+        messages.success(request, f'"{product.productName}" ha sido eliminado de tus favoritos.')
+        return redirect(request.META.get('HTTP_REFERER', reverse_lazy('home')))
+
+
+class ListFavoritesView(LoginRequiredMixin, ListView):
+    model = FavoriteProduct
+    template_name = 'pages/store/products/favorites.html'
+    context_object_name = 'favorites'
+
+    def get_queryset(self):
+        return FavoriteProduct.objects.filter(user=self.request.user)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['products'] = [fav.product for fav in context['favorites']]
+        return context
+    
+class ProductosAliadosView(LoginRequiredMixin, TemplateView):
+    template_name = 'pages/store/products/aliados.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        try:
+            response = requests.get('http://localhost:8000/api/products')
+            response.raise_for_status()
+            context['aliados'] = response.json().get('products', [])
+        except requests.RequestException:
+            context['aliados'] = []
+            context['error'] = 'No se pudo obtener la información de productos aliados.'
+
+        return context
+
 #Diccionarios
 
 #categorias de productos

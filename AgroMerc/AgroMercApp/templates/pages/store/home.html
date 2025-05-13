@@ -5,6 +5,9 @@
 {% endblock %}
 {% block authenticated_links %}
 <a class="nav-link btn btn-outline-dark text-light" href="{% url 'cart' %}">{% trans "Carrito" %}</a>
+<a class="nav-link btn btn-outline-danger text-light" href="{% url 'favorites' %}">
+    ❤️ {% trans "Mis Favoritos" %}
+</a>
 {% if user.userType == 'seller' %}
 <a class="nav-link btn btn-outline-dark text-light" href="{% url 'createProduct' %}">{% trans "Agregar Producto" %}</a>
 <a class="nav-link btn btn-outline-dark text-light" href="{% url 'myProducts' %}">{% trans "Mis Productos" %}</a>
@@ -79,6 +82,13 @@
                         <input type="number" id="quantity-{{ product.id }}" name="quantity" class="form-control" min="{{ product.minQuantity }}" max="{{ product.maxQuantity }}" value="{{ product.minQuantity }}" required>
                     </div>
                     <button type="submit" class="btn btn-success">{% trans "Añadir al carrito" %}</button>
+                </form>
+                <!-- Botón para añadir a favoritos -->
+                <form action="{% url 'addToFavorites' product.id %}" method="post" class="mt-2">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-outline-danger w-100">
+                        ❤️ {% trans "Añadir a favoritos" %}
+                    </button>
                 </form>
             </div>
         </div>
