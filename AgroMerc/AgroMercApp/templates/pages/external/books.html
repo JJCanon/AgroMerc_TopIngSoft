@@ -1,0 +1,36 @@
+{% extends "pages/base.html" %}
+{% load i18n %}
+
+{% block content %}
+<div class="container py-5">
+    <h1 class="text-center mb-4">{% trans "Libros sobre Agricultura" %}</h1>
+
+    {% if error %}
+    <div class="alert alert-danger text-center">{{ error }}</div>
+    {% endif %}
+
+    <div class="row">
+        {% for book in books %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                {% if book.volumeInfo.imageLinks %}
+                <img src="{{ book.volumeInfo.imageLinks.thumbnail }}" class="card-img-top" alt="Portada del libro">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ book.volumeInfo.title }}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">
+                        {{ book.volumeInfo.authors|join:", " }}
+                    </h6>
+                    <p class="card-text">
+                        {{ book.volumeInfo.description|truncatechars:200 }}
+                    </p>
+                    {% if book.volumeInfo.infoLink %}
+                    <a href="{{ book.volumeInfo.infoLink }}" class="btn btn-primary" target="_blank">{% trans "Ver más"%}</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

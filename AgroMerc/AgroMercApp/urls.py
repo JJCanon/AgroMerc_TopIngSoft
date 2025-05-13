@@ -1,6 +1,6 @@
 # urls.py
 from django.urls import path
-from .views import AgroMercView,SignUpView,SignInView,HomeView,CreateProductView,MyProductsView,EditProductView,DeleteProductView,SearchProductView,AddToCartView,CartView,EditCartProductView,DeleteCartProductView,CheckoutView,OrderConfirmationView, OrderPDFDownloadView, ListFavoritesView, AddToFavoritesView, RemoveFromFavoritesView, ProductosAliadosView
+from .views import AgroMercView,SignUpView,SignInView,HomeView,CreateProductView,MyProductsView,EditProductView,DeleteProductView,SearchProductView,AddToCartView,CartView,EditCartProductView,DeleteCartProductView,CheckoutView,OrderConfirmationView, OrderPDFDownloadView, ListFavoritesView, AddToFavoritesView, RemoveFromFavoritesView, ProductosAliadosView, GoogleBooksView
 from .api_views import ProductListAPIView
 from django.contrib.auth.views import LogoutView
 urlpatterns = [
@@ -26,4 +26,5 @@ urlpatterns = [
     path('removeFromFavorites/<int:productId>/', RemoveFromFavoritesView.as_view(), name='removeFromFavorites'),
     path('api/products/', ProductListAPIView.as_view(), name='api_products'),
     path('productos-aliados/', ProductosAliadosView.as_view(), name='productosAliados'),
+    path('books/', GoogleBooksView.as_view(), name='books'),
 ]  

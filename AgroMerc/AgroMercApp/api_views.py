@@ -1,8 +1,8 @@
-from django.http import JsonResponse
-from django.views import View
+from rest_framework.views import APIView
+from rest_framework.response import Response
 from .models import ProductModel
 
-class ProductListAPIView(View):
+class ProductListAPIView(APIView):
     def get(self, request):
         products = ProductModel.objects.all()
         data = []
@@ -25,4 +25,4 @@ class ProductListAPIView(View):
                 }
             })
 
-        return JsonResponse({'products': data}, safe=False)
+        return Response(data)

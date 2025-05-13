@@ -331,6 +331,23 @@ class ProductosAliadosView(LoginRequiredMixin, TemplateView):
             context['error'] = 'No se pudo obtener la información de productos aliados.'
 
         return context
+    
+class GoogleBooksView(LoginRequiredMixin, TemplateView):
+    template_name = 'pages/external/books.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        url = 'https://www.googleapis.com/books/v1/volumes?q=agricultura'
+        try:
+            response = requests.get(url)
+            response.raise_for_status()
+            books_data = response.json()
+            context['books'] = books_data.get('items', [])
+        except requests.RequestException:
+            context['books'] = []
+            context['error'] = 'No se pudieron obtener los libros en este momento.'
+        return context
+
 
 #Diccionarios
 
