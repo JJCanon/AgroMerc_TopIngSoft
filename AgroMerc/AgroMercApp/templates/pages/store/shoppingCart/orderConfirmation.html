@@ -22,8 +22,7 @@
                     <ul>
                         {% for item in order.items.all %}
                         <li>
-                            {% blocktrans with name=item.product.productName
-                            qty=item.quantity price=item.price %}
+                            {% blocktrans with name=item.product.productName qty=item.quantity price=item.price %}
                             {{ name }} (x{{ qty }}) - ${{ price }}
                             {% endblocktrans %}
                         </li>
@@ -38,12 +37,9 @@
             class="btn btn-success me-2"
             target="_blank">
             <i class="fas fa-file-pdf"></i>
-            {% trans Descargar Comprobante %}
+            {% trans "Descargar Comprobante" %}
         </a>
-        <a href="{% url 'home' %}" class="btn btn-primary">Volver al Inicio</a>
-        <a href="{% url 'home' %}" class="btn btn-primary">
-            {% trans "Volver al Inicio" %}
-        </a>
+        <a href="{% url 'home' %}" class="btn btn-primary">{% trans "Volver al Inicio" %}</a>
     </div>
 </div>
 {% endblock %}
