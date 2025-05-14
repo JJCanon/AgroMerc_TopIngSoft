@@ -42,10 +42,8 @@ class HomeView(LoginRequiredMixin, ListView):
     context_object_name = 'products'
     
     def get_queryset(self):
-        # Obtén todos los productos
         queryset = ProductModel.objects.all()
 
-        # Si el usuario es un Seller, excluye sus propios productos
         if self.request.user.userType == 'seller':
             queryset = queryset.exclude(seller=self.request.user)
 
@@ -53,7 +51,13 @@ class HomeView(LoginRequiredMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        print(context['products'])  # Imprime los productos en la consola (para depuración)
+        unique_categories = sorted(set(cat for sub in CATEGORIES.values() for cat in sub))
+        context['categorias'] = unique_categories
+        
+        User = get_user_model()
+        context['sellers'] = User.objects.filter(productmodel__isnull=False).distinct()
+        
+        context['favorites_ids'] = set(FavoriteProduct.objects.filter(user=self.request.user).values_list('product_id', flat=True))
         return context
     
 # Create Product View
@@ -64,11 +68,10 @@ class CreateProductView(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy('home')
     
     def form_valid(self, form):
-        form.instance.seller = self.request.user #asignar el usuario actual al campo seller
-        form.instance.sellerId = self.request.user.idNumber #asignar la cedula del usuario actual al campo sellerId
-        productName = form.cleaned_data['productName'] #obtener el nombre del producto
+        form.instance.seller = self.request.user
+        form.instance.sellerId = self.request.user.idNumber
+        productName = form.cleaned_data['productName']
         
-        #asignar categorias a los productos
         if productName in CATEGORIES:
             form.instance.categories = ','.join(CATEGORIES[productName])
         return super().form_valid(form)
@@ -145,35 +148,27 @@ class CartView(LoginRequiredMixin, ListView):
     context_object_name = 'cartItems'
 
     def get_queryset(self):
-        # Filtra los elementos del carrito por el usuario actual
         return cartModel.objects.filter(user=self.request.user)
 
 
 # Add to Cart View
 class AddToCartView(View):
     def post(self, request, productId):
-        # Obtén el producto o devuelve un error 404 si no existe
         product = get_object_or_404(ProductModel, id=productId)
+        quantity = int(request.POST.get('quantity', product.minQuantity))
         
-        # Obtén la cantidad ingresada por el usuario
-        quantity = int(request.POST.get('quantity', product.minQuantity))  # Valor predeterminado: cantidad mínima
-        
-        # Verifica si el producto ya está en el carrito del usuario
         cartItem, created = cartModel.objects.get_or_create(
             user=request.user,
             product=product,
-            defaults={'quantity': quantity}  # Cantidad ingresada por el usuario
+            defaults={'quantity': quantity}
         )
         
         if not created:
-            # Si el producto ya está en el carrito, incrementa la cantidad
             cartItem.quantity += quantity
             cartItem.save()
         
-        # Mensaje de éxito
         messages.success(request, f'"{product.productName}" (x{quantity}) ha sido añadido al carrito.')
         
-        # Redirige al usuario a la página anterior
         return redirect(request.META.get('HTTP_REFERER', 'home'))
 
 # Edit Cart View
@@ -182,7 +177,6 @@ class EditCartProductView(View):
         cartItem = get_object_or_404(cartModel, id = productId, user=request.user)
         newQuantity = int(request.POST.get('quantity', cartItem.quantity))
         
-        # Validar que la nueva cantida esté dentro del rango permitido
         if newQuantity < cartItem.product.minQuantity:
             messages.error(request,f'la cantidad mínima permitida es {cartItem.product.minQuantity}.')
         elif newQuantity > cartItem.product.maxQuantity:
@@ -210,10 +204,8 @@ class CheckoutView(LoginRequiredMixin, View):
             messages.warning(request, 'No hay productos en el carrito.')
             return redirect('cart')
         
-        # Calcular el total del carrito
         totalPrice = sum(item.totalPrice() for item in cartItems)
         
-        # Renderizar la página de confirmación de pago
         return render(request, 'pages/store/shoppingCart/checkout.html', {
             'cartItems': cartItems,
             'totalPrice': totalPrice,
@@ -225,34 +217,29 @@ class CheckoutView(LoginRequiredMixin, View):
             messages.warning(request, 'No hay productos en el carrito.')
             return redirect('cart')
         
-        # Crear el pedido
         totalPrice = sum(item.totalPrice() for item in cartItems)
         order = OrderModel.objects.create(
             user=request.user,
             totalPrice=totalPrice,
         )
         
-        # Crear los items del pedido y actualizar las cantidades máximas
         for cartItem in cartItems:
-            # Reducir la cantidad máxima del producto
             product = cartItem.product
             product.maxQuantity -= cartItem.quantity
-            if product.maxQuantity < 0:  # Evitar cantidades negativas
+            if product.maxQuantity < 0:
                 product.maxQuantity = 0
             product.save()
             
-            # Crear el item del pedido
             OrderItemModel.objects.create(
                 order=order,
                 product=product,
                 quantity=cartItem.quantity,
                 price=product.pricePeerUnit,
             )
-        
-        # Vaciar el carrito
+            
         cartItems.delete()
-        
         messages.success(request, 'Pedido realizado con éxito.')
+        
         return redirect('orderConfirmation', orderId=order.id)
 
 # Order Confirmation View
@@ -266,14 +253,13 @@ class OrderConfirmationView(LoginRequiredMixin, View):
 
 # PDF Generation View
 class OrderPDFDownloadView(LoginRequiredMixin, View):
-    pdf_generator_class = ReportLabPDFGenerator  # Nombre correcto del atributo
+    pdf_generator_class = ReportLabPDFGenerator
     
     def get(self, request, *args, **kwargs):
-        order_id = kwargs.get('orderId')  # Coincide con el nombre en la URL
+        order_id = kwargs.get('orderId')
         order = get_object_or_404(OrderModel, id=order_id, user=request.user)
         order_items = OrderItemModel.objects.filter(order=order)
         
-        # Usamos la clase directamente
         pdf_generator = self.pdf_generator_class()
         pdf_buffer = pdf_generator.generate_order_pdf(order, order_items)
         
@@ -321,11 +307,11 @@ class ProductosAliadosView(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-
         try:
             response = requests.get('http://localhost:8000/api/products')
             response.raise_for_status()
-            context['aliados'] = response.json().get('products', [])
+            print('Respuesta de API de aliados:',   response.json())
+            context['aliados'] = response.json()
         except requests.RequestException:
             context['aliados'] = []
             context['error'] = 'No se pudo obtener la información de productos aliados.'
@@ -351,7 +337,7 @@ class GoogleBooksView(LoginRequiredMixin, TemplateView):
 
 #Diccionarios
 
-#categorias de productos
+# Categorias de productos
 # Diccionario de categorías
 CATEGORIES = {
     'aguacate': ['Frutas tropicales', 'Fuentes de fibra'],
