@@ -5,9 +5,8 @@
 {% endblock %}
 {% block authenticated_links %}
 <a class="nav-link btn btn-outline-dark text-light" href="{% url 'cart' %}">{% trans "Carrito" %}</a>
-<a class="nav-link btn btn-outline-danger text-light" href="{% url 'favorites' %}">
-    ❤️ {% trans "Mis Favoritos" %}
-</a>
+<a class="nav-link btn btn-outline-dark text-light" href="{% url 'favorites' %}">❤️ {% trans "Mis Favoritos" %}</a>
+<a class="nav-link btn btn-outline-dark text-light" href="{% url 'books' %}"> {% trans "API Google Books" %}</a>
 {% if user.userType == 'seller' %}
 <a class="nav-link btn btn-outline-dark text-light" href="{% url 'createProduct' %}">{% trans "Agregar Producto" %}</a>
 <a class="nav-link btn btn-outline-dark text-light" href="{% url 'myProducts' %}">{% trans "Mis Productos" %}</a>

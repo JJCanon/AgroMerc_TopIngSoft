@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-13 13:54-0500\n"
+"POT-Creation-Date: 2025-05-13 19:31-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,49 +19,41 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? "
 "1 : 2;\n"
 
-#: AgroMerc/settings.py:125
-msgid "English"
-msgstr ""
-
-#: AgroMerc/settings.py:126
-msgid "Spanish"
-msgstr ""
-
-#: AgroMercApp/templates/pages/AgroMerc.html:6
-#: AgroMercApp/templates/pages/session/signUp.html:6
+#: .\AgroMercApp\templates\pages\AgroMerc.html:6
+#: .\AgroMercApp\templates\pages\session\signUp.html:6
 msgid "Iniciar Sesión"
 msgstr ""
 
-#: AgroMercApp/templates/pages/AgroMerc.html:7
-#: AgroMercApp/templates/pages/session/signUp.html:15
+#: .\AgroMercApp\templates\pages\AgroMerc.html:7
+#: .\AgroMercApp\templates\pages\session\signUp.html:15
 msgid "Registrarse"
 msgstr ""
 
-#: AgroMercApp/templates/pages/AgroMerc.html:12
-#: AgroMercApp/templates/pages/store/shoppingCart/shoppingCart.html:5
+#: .\AgroMercApp\templates\pages\AgroMerc.html:12
+#: .\AgroMercApp\templates\pages\store\shoppingCart\shoppingCart.html:5
 msgid "Menú Principal"
 msgstr ""
 
-#: AgroMercApp/templates/pages/AgroMerc.html:14
-#: AgroMercApp/templates/pages/store/home.html:12
-#: AgroMercApp/templates/pages/store/products/myProducts.html:9
+#: .\AgroMercApp\templates\pages\AgroMerc.html:14
+#: .\AgroMercApp\templates\pages\store\home.html:12
+#: .\AgroMercApp\templates\pages\store\products\myProducts.html:9
 msgid "Agregar Producto"
 msgstr ""
 
-#: AgroMercApp/templates/pages/AgroMerc.html:15
-#: AgroMercApp/templates/pages/store/home.html:13
-#: AgroMercApp/templates/pages/store/products/editProducts.html:9
-#: AgroMercApp/templates/pages/store/products/myProducts.html:17
-#: AgroMercApp/templates/pages/store/shoppingCart/shoppingCart.html:7
+#: .\AgroMercApp\templates\pages\AgroMerc.html:15
+#: .\AgroMercApp\templates\pages\store\home.html:13
+#: .\AgroMercApp\templates\pages\store\products\editProducts.html:9
+#: .\AgroMercApp\templates\pages\store\products\myProducts.html:17
+#: .\AgroMercApp\templates\pages\store\shoppingCart\shoppingCart.html:7
 msgid "Mis Productos"
 msgstr ""
 
-#: AgroMercApp/templates/pages/AgroMerc.html:24
-#: AgroMercApp/templates/pages/store/home.html:22
+#: .\AgroMercApp\templates\pages\AgroMerc.html:24
+#: .\AgroMercApp\templates\pages\store\home.html:22
 msgid "¡¡¡Somos AgroMerc!!!"
 msgstr ""
 
-#: AgroMercApp/templates/pages/AgroMerc.html:32
+#: .\AgroMercApp\templates\pages\AgroMerc.html:32
 msgid ""
 "\n"
 "                    En la industria agrícola, muchos campesinos enfrentan "
@@ -74,7 +66,7 @@ msgid ""
 "                    "
 msgstr ""
 
-#: AgroMercApp/templates/pages/AgroMerc.html:37
+#: .\AgroMercApp\templates\pages\AgroMerc.html:37
 msgid ""
 "\n"
 "                    Con el objetivo de establecer una conexión directa entre "
@@ -85,7 +77,7 @@ msgid ""
 "                    "
 msgstr ""
 
-#: AgroMercApp/templates/pages/AgroMerc.html:42
+#: .\AgroMercApp\templates\pages\AgroMerc.html:42
 msgid ""
 "\n"
 "                    En nuestro sitio web, los campesinos podrán mostrar y "
@@ -96,7 +88,7 @@ msgid ""
 "                    "
 msgstr ""
 
-#: AgroMercApp/templates/pages/AgroMerc.html:47
+#: .\AgroMercApp\templates\pages\AgroMerc.html:47
 msgid ""
 "\n"
 "                    Nuestra misión es fomentar la transparencia y equidad en "
@@ -106,252 +98,274 @@ msgid ""
 "                    "
 msgstr ""
 
-#: AgroMercApp/templates/pages/base.html:50
+#: .\AgroMercApp\templates\pages\base.html:50
 msgid "Cerrar Sesión"
 msgstr ""
 
-#: AgroMercApp/templates/pages/base.html:60
+#: .\AgroMercApp\templates\pages\base.html:60
 msgid "Idioma"
 msgstr ""
 
-#: AgroMercApp/templates/pages/base.html:86
-#: AgroMercApp/templates/pages/base.html:103
+#: .\AgroMercApp\templates\pages\base.html:86
+#: .\AgroMercApp\templates\pages\base.html:103
 msgid "Publicidad"
 msgstr ""
 
-#: AgroMercApp/templates/pages/base.html:87
-#: AgroMercApp/templates/pages/base.html:104
+#: .\AgroMercApp\templates\pages\base.html:87
+#: .\AgroMercApp\templates\pages\base.html:104
 msgid "Espacio para anuncios."
 msgstr ""
 
-#: AgroMercApp/templates/pages/base.html:124
+#: .\AgroMercApp\templates\pages\base.html:124
 msgid "Tu mercado agrícola en línea."
 msgstr ""
 
-#: AgroMercApp/templates/pages/base.html:130
+#: .\AgroMercApp\templates\pages\base.html:130
 msgid "Sobre Nosotros"
 msgstr ""
 
-#: AgroMercApp/templates/pages/session/signIn.html:5
-#: AgroMercApp/templates/pages/session/signUp.html:5
+#: .\AgroMercApp\templates\pages\external\books.html:6
+msgid "Libros sobre Agricultura"
+msgstr ""
+
+#: .\AgroMercApp\templates\pages\external\books.html:28
+msgid "Ver más"
+msgstr ""
+
+#: .\AgroMercApp\templates\pages\session\signIn.html:5
+#: .\AgroMercApp\templates\pages\session\signUp.html:5
 msgid "AgroMerc"
 msgstr ""
 
-#: AgroMercApp/templates/pages/session/signIn.html:6
-#: AgroMercApp/templates/pages/session/signUp.html:11
+#: .\AgroMercApp\templates\pages\session\signIn.html:6
+#: .\AgroMercApp\templates\pages\session\signUp.html:11
 msgid "Registro"
 msgstr ""
 
-#: AgroMercApp/templates/pages/session/signIn.html:11
+#: .\AgroMercApp\templates\pages\session\signIn.html:11
 msgid "Inicio de sesión"
 msgstr ""
 
-#: AgroMercApp/templates/pages/session/signIn.html:15
+#: .\AgroMercApp\templates\pages\session\signIn.html:15
 msgid "Iniciar sesión"
 msgstr ""
 
-#: AgroMercApp/templates/pages/store/home.html:7
-#: AgroMercApp/templates/pages/store/products/favorites.html:5
+#: .\AgroMercApp\templates\pages\store\home.html:7
+#: .\AgroMercApp\templates\pages\store\products\favorites.html:5
 msgid "Carrito"
 msgstr ""
 
-#: AgroMercApp/templates/pages/store/home.html:9
+#: .\AgroMercApp\templates\pages\store\home.html:9
 msgid "Mis Favoritos"
 msgstr ""
 
-#: AgroMercApp/templates/pages/store/home.html:33
+#: .\AgroMercApp\templates\pages\store\home.html:33
 msgid "Buscar producto..."
 msgstr ""
 
-#: AgroMercApp/templates/pages/store/home.html:34
+#: .\AgroMercApp\templates\pages\store\home.html:34
 msgid "Buscar"
 msgstr ""
 
-#: AgroMercApp/templates/pages/store/home.html:39
+#: .\AgroMercApp\templates\pages\store\home.html:39
 msgid "-- Todas las categorías --"
 msgstr ""
 
-#: AgroMercApp/templates/pages/store/home.html:48
+#: .\AgroMercApp\templates\pages\store\home.html:48
 msgid "-- Todos los vendedores --"
 msgstr ""
 
-#: AgroMercApp/templates/pages/store/home.html:69
-#: AgroMercApp/templates/pages/store/products/favorites.html:27
+#: .\AgroMercApp\templates\pages\store\home.html:69
+#: .\AgroMercApp\templates\pages\store\products\favorites.html:27
 msgid "Cantidad máxima:"
 msgstr ""
 
-#: AgroMercApp/templates/pages/store/home.html:70
-#: AgroMercApp/templates/pages/store/products/favorites.html:28
+#: .\AgroMercApp\templates\pages\store\home.html:70
+#: .\AgroMercApp\templates\pages\store\products\favorites.html:28
 msgid "Cantidad mínima:"
 msgstr ""
 
-#: AgroMercApp/templates/pages/store/home.html:71
-#: AgroMercApp/templates/pages/store/products/favorites.html:29
+#: .\AgroMercApp\templates\pages\store\home.html:71
+#: .\AgroMercApp\templates\pages\store\products\aliados.html:27
+#: .\AgroMercApp\templates\pages\store\products\favorites.html:29
 msgid "Categorías:"
 msgstr ""
 
-#: AgroMercApp/templates/pages/store/home.html:72
-#: AgroMercApp/templates/pages/store/products/favorites.html:30
+#: .\AgroMercApp\templates\pages\store\home.html:72
+#: .\AgroMercApp\templates\pages\store\products\favorites.html:30
 msgid "Vendedor:"
 msgstr ""
 
-#: AgroMercApp/templates/pages/store/home.html:73
+#: .\AgroMercApp\templates\pages\store\home.html:73
 msgid "Cédula del vendedor:"
 msgstr ""
 
-#: AgroMercApp/templates/pages/store/home.html:74
+#: .\AgroMercApp\templates\pages\store\home.html:74
+#: .\AgroMercApp\templates\pages\store\products\aliados.html:26
 msgid "Unidad:"
 msgstr ""
 
-#: AgroMercApp/templates/pages/store/home.html:75
-#: AgroMercApp/templates/pages/store/products/favorites.html:31
+#: .\AgroMercApp\templates\pages\store\home.html:75
+#: .\AgroMercApp\templates\pages\store\products\favorites.html:31
 msgid "Precio por Unidad:"
 msgstr ""
 
-#: AgroMercApp/templates/pages/store/home.html:81
+#: .\AgroMercApp\templates\pages\store\home.html:81
 msgid "Cantidad:"
 msgstr ""
 
-#: AgroMercApp/templates/pages/store/home.html:84
+#: .\AgroMercApp\templates\pages\store\home.html:84
 msgid "Añadir al carrito"
 msgstr ""
 
-#: AgroMercApp/templates/pages/store/home.html:90
+#: .\AgroMercApp\templates\pages\store\home.html:90
 msgid "Añadir a favoritos"
 msgstr ""
 
-#: AgroMercApp/templates/pages/store/home.html:99
+#: .\AgroMercApp\templates\pages\store\home.html:99
 msgid "No hay productos disponibles."
 msgstr ""
 
-#: AgroMercApp/templates/pages/store/products/createProducts.html:8
-#: AgroMercApp/templates/pages/store/products/deleteProducts.html:8
-#: AgroMercApp/templates/pages/store/products/editProducts.html:8
-#: AgroMercApp/templates/pages/store/products/myProducts.html:8
+#: .\AgroMercApp\templates\pages\store\products\aliados.html:9
+msgid "Productos de Aliados"
+msgstr ""
+
+#: .\AgroMercApp\templates\pages\store\products\aliados.html:25
+msgid "Precio:"
+msgstr ""
+
+#: .\AgroMercApp\templates\pages\store\products\aliados.html:34
+msgid "No hay productos aliados disponibles."
+msgstr ""
+
+#: .\AgroMercApp\templates\pages\store\products\createProducts.html:8
+#: .\AgroMercApp\templates\pages\store\products\deleteProducts.html:8
+#: .\AgroMercApp\templates\pages\store\products\editProducts.html:8
+#: .\AgroMercApp\templates\pages\store\products\myProducts.html:8
 msgid "Inicio"
 msgstr ""
 
-#: AgroMercApp/templates/pages/store/products/createProducts.html:13
+#: .\AgroMercApp\templates\pages\store\products\createProducts.html:13
 msgid "Crear Producto"
 msgstr ""
 
-#: AgroMercApp/templates/pages/store/products/createProducts.html:17
+#: .\AgroMercApp\templates\pages\store\products\createProducts.html:17
 msgid "Guardar"
 msgstr ""
 
-#: AgroMercApp/templates/pages/store/products/deleteProducts.html:13
+#: .\AgroMercApp\templates\pages\store\products\deleteProducts.html:13
 msgid "¿Estás seguro de que quieres eliminar este producto?"
 msgstr ""
 
-#: AgroMercApp/templates/pages/store/products/deleteProducts.html:15
+#: .\AgroMercApp\templates\pages\store\products\deleteProducts.html:15
 msgid "Producto:"
 msgstr ""
 
-#: AgroMercApp/templates/pages/store/products/deleteProducts.html:19
+#: .\AgroMercApp\templates\pages\store\products\deleteProducts.html:19
 msgid "Sí, eliminar"
 msgstr ""
 
-#: AgroMercApp/templates/pages/store/products/deleteProducts.html:20
-#: AgroMercApp/templates/pages/store/products/editProducts.html:19
+#: .\AgroMercApp\templates\pages\store\products\deleteProducts.html:20
+#: .\AgroMercApp\templates\pages\store\products\editProducts.html:19
 msgid "Cancelar"
 msgstr ""
 
-#: AgroMercApp/templates/pages/store/products/editProducts.html:14
+#: .\AgroMercApp\templates\pages\store\products\editProducts.html:14
 msgid "Editar Producto"
 msgstr ""
 
-#: AgroMercApp/templates/pages/store/products/editProducts.html:18
+#: .\AgroMercApp\templates\pages\store\products\editProducts.html:18
 msgid "Guardar Cambios"
 msgstr ""
 
-#: AgroMercApp/templates/pages/store/products/favorites.html:6
+#: .\AgroMercApp\templates\pages\store\products\favorites.html:6
 msgid "Volver a la tienda"
 msgstr ""
 
-#: AgroMercApp/templates/pages/store/products/favorites.html:14
+#: .\AgroMercApp\templates\pages\store\products\favorites.html:14
 msgid "Mis Productos Favoritos"
 msgstr ""
 
-#: AgroMercApp/templates/pages/store/products/favorites.html:38
+#: .\AgroMercApp\templates\pages\store\products\favorites.html:38
 msgid "Eliminar de favoritos"
 msgstr ""
 
-#: AgroMercApp/templates/pages/store/products/favorites.html:47
+#: .\AgroMercApp\templates\pages\store\products\favorites.html:47
 msgid "No tienes productos favoritos aún."
 msgstr ""
 
-#: AgroMercApp/templates/pages/store/products/myProducts.html:31
+#: .\AgroMercApp\templates\pages\store\products\myProducts.html:31
 msgid "Cantidad máxima"
 msgstr ""
 
-#: AgroMercApp/templates/pages/store/products/myProducts.html:32
+#: .\AgroMercApp\templates\pages\store\products\myProducts.html:32
 msgid "Cantidad mínima"
 msgstr ""
 
-#: AgroMercApp/templates/pages/store/products/myProducts.html:33
+#: .\AgroMercApp\templates\pages\store\products\myProducts.html:33
 msgid "Categorías"
 msgstr ""
 
-#: AgroMercApp/templates/pages/store/products/myProducts.html:34
+#: .\AgroMercApp\templates\pages\store\products\myProducts.html:34
 msgid "Vendedor"
 msgstr ""
 
-#: AgroMercApp/templates/pages/store/products/myProducts.html:35
+#: .\AgroMercApp\templates\pages\store\products\myProducts.html:35
 msgid "Cédula del vendedor"
 msgstr ""
 
-#: AgroMercApp/templates/pages/store/products/myProducts.html:37
+#: .\AgroMercApp\templates\pages\store\products\myProducts.html:37
 msgid "Editar"
 msgstr ""
 
-#: AgroMercApp/templates/pages/store/products/myProducts.html:38
+#: .\AgroMercApp\templates\pages\store\products\myProducts.html:38
 msgid "Eliminar"
 msgstr ""
 
-#: AgroMercApp/templates/pages/store/products/myProducts.html:45
+#: .\AgroMercApp\templates\pages\store\products\myProducts.html:45
 msgid "No tienes productos registrados."
 msgstr ""
 
-#: AgroMercApp/templates/pages/store/shoppingCart/checkout.html:6
-#: AgroMercApp/templates/pages/store/shoppingCart/checkout.html:31
+#: .\AgroMercApp\templates\pages\store\shoppingCart\checkout.html:6
+#: .\AgroMercApp\templates\pages\store\shoppingCart\checkout.html:31
 msgid "Confirmar Pedido"
 msgstr ""
 
-#: AgroMercApp/templates/pages/store/shoppingCart/checkout.html:9
+#: .\AgroMercApp\templates\pages\store\shoppingCart\checkout.html:9
 msgid "Resumen del Carrito"
 msgstr ""
 
-#: AgroMercApp/templates/pages/store/shoppingCart/checkout.html:15
-#: AgroMercApp/templates/pages/store/shoppingCart/shoppingCart.html:22
-#: AgroMercApp/templates/pages/store/shoppingCart/shoppingCart.html:30
+#: .\AgroMercApp\templates\pages\store\shoppingCart\checkout.html:15
+#: .\AgroMercApp\templates\pages\store\shoppingCart\shoppingCart.html:22
+#: .\AgroMercApp\templates\pages\store\shoppingCart\shoppingCart.html:30
 msgid "Cantidad"
 msgstr ""
 
-#: AgroMercApp/templates/pages/store/shoppingCart/checkout.html:16
-#: AgroMercApp/templates/pages/store/shoppingCart/shoppingCart.html:23
+#: .\AgroMercApp\templates\pages\store\shoppingCart\checkout.html:16
+#: .\AgroMercApp\templates\pages\store\shoppingCart\shoppingCart.html:23
 msgid "Precio unitario"
 msgstr ""
 
-#: AgroMercApp/templates/pages/store/shoppingCart/checkout.html:17
-#: AgroMercApp/templates/pages/store/shoppingCart/checkout.html:27
-#: AgroMercApp/templates/pages/store/shoppingCart/orderConfirmation.html:18
-#: AgroMercApp/templates/pages/store/shoppingCart/shoppingCart.html:24
+#: .\AgroMercApp\templates\pages\store\shoppingCart\checkout.html:17
+#: .\AgroMercApp\templates\pages\store\shoppingCart\checkout.html:27
+#: .\AgroMercApp\templates\pages\store\shoppingCart\orderConfirmation.html:18
+#: .\AgroMercApp\templates\pages\store\shoppingCart\shoppingCart.html:24
 msgid "Total"
 msgstr ""
 
-#: AgroMercApp/templates/pages/store/shoppingCart/checkout.html:24
+#: .\AgroMercApp\templates\pages\store\shoppingCart\checkout.html:24
 msgid "Total del Pedido"
 msgstr ""
 
-#: AgroMercApp/templates/pages/store/shoppingCart/orderConfirmation.html:6
+#: .\AgroMercApp\templates\pages\store\shoppingCart\orderConfirmation.html:6
 msgid "¡Pedido Confirmado!"
 msgstr ""
 
-#: AgroMercApp/templates/pages/store/shoppingCart/orderConfirmation.html:9
+#: .\AgroMercApp\templates\pages\store\shoppingCart\orderConfirmation.html:9
 msgid "Resumen del Pedido"
 msgstr ""
 
-#: AgroMercApp/templates/pages/store/shoppingCart/orderConfirmation.html:12
+#: .\AgroMercApp\templates\pages\store\shoppingCart\orderConfirmation.html:12
 #, python-format
 msgid ""
 "\n"
@@ -359,34 +373,34 @@ msgid ""
 "                    "
 msgstr ""
 
-#: AgroMercApp/templates/pages/store/shoppingCart/orderConfirmation.html:16
+#: .\AgroMercApp\templates\pages\store\shoppingCart\orderConfirmation.html:16
 msgid "Fecha"
 msgstr ""
 
-#: AgroMercApp/templates/pages/store/shoppingCart/orderConfirmation.html:21
+#: .\AgroMercApp\templates\pages\store\shoppingCart\orderConfirmation.html:21
 msgid "Productos"
 msgstr ""
 
-#: AgroMercApp/templates/pages/store/shoppingCart/orderConfirmation.html:45
+#: .\AgroMercApp\templates\pages\store\shoppingCart\orderConfirmation.html:45
 msgid "Volver al Inicio"
 msgstr ""
 
-#: AgroMercApp/templates/pages/store/shoppingCart/shoppingCart.html:13
+#: .\AgroMercApp\templates\pages\store\shoppingCart\shoppingCart.html:13
 msgid "Carrito de Compras"
 msgstr ""
 
-#: AgroMercApp/templates/pages/store/shoppingCart/shoppingCart.html:37
+#: .\AgroMercApp\templates\pages\store\shoppingCart\shoppingCart.html:37
 msgid "Editar Cantidad"
 msgstr ""
 
-#: AgroMercApp/templates/pages/store/shoppingCart/shoppingCart.html:42
+#: .\AgroMercApp\templates\pages\store\shoppingCart\shoppingCart.html:42
 msgid "Eliminar del Carrito"
 msgstr ""
 
-#: AgroMercApp/templates/pages/store/shoppingCart/shoppingCart.html:50
+#: .\AgroMercApp\templates\pages\store\shoppingCart\shoppingCart.html:50
 msgid "Tu carrito está vacío."
 msgstr ""
 
-#: AgroMercApp/templates/pages/store/shoppingCart/shoppingCart.html:58
+#: .\AgroMercApp\templates\pages\store\shoppingCart\shoppingCart.html:58
 msgid "Proceder al Pago"
 msgstr ""
