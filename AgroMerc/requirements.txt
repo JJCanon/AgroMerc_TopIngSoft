@@ -6,3 +6,4 @@ sqlparse
 tzdata
 requests
 reportlab
+djangorestframework
